@@ -8,6 +8,12 @@ Install Astro [vscode extension][extension].
 npm create astro@latest
 ```
 
+# Integrating Tailwind
+
+```zsh
+npx astro add tailwind
+```
+
 # Resources
 
 - [Astro][astro]
