@@ -2,6 +2,12 @@
 
 Install Astro [vscode extension][extension].
 
+# Integrating Prettier
+
+```zsh
+npm install --save-dev prettier prettier-plugin-astro
+```
+
 # Project initialization
 
 ```zsh
@@ -16,10 +22,10 @@ npx astro add tailwind
 
 # Resources
 
-- [Astro][astro]
-- [Astro vscode extension][extension]
-- [Course outline][outline]
-- [UX mocks][figma]
+-   [Astro][astro]
+-   [Astro vscode extension][extension]
+-   [Course outline][outline]
+-   [UX mocks][figma]
 
 [extension]: https://marketplace.visualstudio.com/items?itemName=astro-build.astro-vscode
 [astro]: https://astro.build
