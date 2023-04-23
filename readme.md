@@ -10,10 +10,10 @@ npm create astro@latest
 
 # Resources
 
-[Astro][astro]  
-[Astro vscode extension][extension]
-[Course outline][outline]  
-[UX mocks][figma]  
+- [Astro][astro]
+- [Astro vscode extension][extension]
+- [Course outline][outline]
+- [UX mocks][figma]
 
 [extension]: https://marketplace.visualstudio.com/items?itemName=astro-build.astro-vscode
 [astro]: https://astro.build
