@@ -30,4 +30,4 @@ npx astro add tailwind
 [extension]: https://marketplace.visualstudio.com/items?itemName=astro-build.astro-vscode
 [astro]: https://astro.build
 [outline]: https://docs.google.com/document/d/1WvgbgoUPLUc_KPYN5ryaj4NcCTdZOjqcxP61vj4EBrQ/edit
-[figma]: https://www.figma.com/file/MpgnmaYdEhukf1ydRwaTSPBp/James-Q-Quick?node-id=3522-1085&t=gdvo8BLbVVpzxu6h-0
+[figma]: https://www.figma.com/file/G5ePPEpkmVad5FQygN7mFh/Astro-Course?node-id=1-103&t=sPFbh23zqusIKJLJ-0
