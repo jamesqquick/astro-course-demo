@@ -1,0 +1,44 @@
+---
+import type {CollectionEntry} from "astro:content"
+
+import Category from "./Category.astro"
+
+type Props = {
+    author: CollectionEntry<"authors">
+    post: CollectionEntry<"posts">
+}
+
+const {author, post} = Astro.props
+---
+
+<article>
+    <img
+        src={post.data.image}
+        alt={post.data.title}
+        class="rounded-2xl shadow-xl mb-6"
+    />
+
+    <div class="flex gap-x-4 mb-4">
+        {post.data.categories.map(category => <Category category={category} />)}
+    </div>
+
+    <p class="text-4xl text-zinc-900 mb-4 font-semibold">
+        {post.data.title}
+    </p>
+
+    <p class="text-zinc-500 text-2xl mb-9 line-clamp-2">
+        {post.body}
+    </p>
+
+    <div class="flex justify-between items-center">
+        <div class="flex items-center gap-x-2">
+            <span class="text-zinc-900 text-2xl font-bold">
+                {author?.data.name}
+            </span>
+        </div>
+
+        <span class="text-zinc-700 text-xl">
+            {post.data.date}
+        </span>
+    </div>
+</article>

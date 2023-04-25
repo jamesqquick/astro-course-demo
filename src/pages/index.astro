@@ -4,6 +4,7 @@ import {getCollection} from "astro:content"
 import Layout from "../layouts/Layout.astro"
 import FeaturedPost from "../components/FeaturedPost.astro"
 import Category from "../components/Category.astro"
+import Post from "../components/Post.astro"
 
 const allPosts = await getCollection("posts")
 const posts = allPosts.filter(post => !post.data.featured)
@@ -55,10 +56,22 @@ const categories = Array.from(
             </div>
         </div>
 
-        {
-            posts.map(post => {
-                return <p>{post.data.title}</p>
-            })
-        }
+        <div
+            class="grid grid-cols-2 gap-x-16 gap-y-32 mb-60 max-sm:mb-36 max-sm:grid-cols-1 max-sm:gap-y-14"
+        >
+            {
+                posts.map(post => {
+                    const author = authors.find(
+                        author => author.slug === post.data.author,
+                    )
+
+                    if (!author) {
+                        return null
+                    }
+
+                    return <Post author={author} post={post} />
+                })
+            }
+        </div>
     </main>
 </Layout>

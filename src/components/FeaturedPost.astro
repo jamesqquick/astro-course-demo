@@ -1,5 +1,6 @@
 ---
 import type {CollectionEntry} from "astro:content"
+
 import Category from "./Category.astro"
 
 type Props = {
@@ -10,7 +11,7 @@ type Props = {
 const {author, post} = Astro.props
 ---
 
-<div
+<article
     class="grid grid-cols-2 gap-x-12 gap-y-5 mb-28 max-sm:grid-cols-1 max-sm:mb-12"
 >
     <img src={post.data.image} alt={post.data.title} class="rounded-2xl" />
@@ -50,4 +51,4 @@ const {author, post} = Astro.props
             </span>
         </div>
     </div>
-</div>
+</article>
