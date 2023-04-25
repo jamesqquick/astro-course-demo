@@ -14,7 +14,9 @@ const {author, post} = Astro.props
 <article
     class="grid grid-cols-2 gap-x-12 gap-y-5 mb-28 max-sm:grid-cols-1 max-sm:mb-12"
 >
-    <img src={post.data.image} alt={post.data.title} class="rounded-2xl" />
+    <a href={`/blog/${post.slug}`}>
+        <img src={post.data.image} alt={post.data.title} class="rounded-2xl" />
+    </a>
 
     <div>
         <div class="flex gap-x-4 mb-4">
@@ -25,9 +27,12 @@ const {author, post} = Astro.props
             }
         </div>
 
-        <p class="text-5xl text-zinc-900 mb-4 font-bold">
+        <a
+            href={`/blog/${post.slug}`}
+            class="text-5xl text-zinc-900 mb-4 font-bold inline-block"
+        >
             {post.data.title}
-        </p>
+        </a>
 
         <p class="text-zinc-500 text-2xl mb-9 line-clamp-5">
             {post.body}

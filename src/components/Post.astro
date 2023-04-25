@@ -12,19 +12,24 @@ const {author, post} = Astro.props
 ---
 
 <article>
-    <img
-        src={post.data.image}
-        alt={post.data.title}
-        class="rounded-2xl shadow-xl mb-6"
-    />
+    <a href={`/blog/${post.slug}`}>
+        <img
+            src={post.data.image}
+            alt={post.data.title}
+            class="rounded-2xl shadow-xl mb-6"
+        />
+    </a>
 
     <div class="flex gap-x-4 mb-4">
         {post.data.categories.map(category => <Category category={category} />)}
     </div>
 
-    <p class="text-4xl text-zinc-900 mb-4 font-semibold">
+    <a
+        href={`/blog/${post.slug}`}
+        class="text-4xl text-zinc-900 mb-4 font-semibold inline-block"
+    >
         {post.data.title}
-    </p>
+    </a>
 
     <p class="text-zinc-500 text-2xl mb-9 line-clamp-2">
         {post.body}
