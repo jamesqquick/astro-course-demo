@@ -3,8 +3,8 @@ import {getCollection} from "astro:content"
 
 import Layout from "../layouts/Layout.astro"
 import FeaturedPost from "../components/FeaturedPost.astro"
-import Category from "../components/Category.astro"
-import Post from "../components/Post.astro"
+import PostList from "../components/PostList.astro"
+import CategoryList from "../components/CategoryList.astro"
 
 const allPosts = await getCollection("posts")
 const posts = allPosts.filter(post => !post.data.featured)
@@ -49,29 +49,11 @@ const categories = Array.from(
 
         <div class="flex gap-x-14 gap-y-3 mb-16 max-sm:flex-col">
             <span class="font-bold text-5xl text-teal-900">Recent posts</span>
-
-            <div class="flex flex-row gap-x-4 overflow-x-auto">
-                <Category category="All categories" />
-                {categories.map(category => <Category category={category} />)}
-            </div>
+            <CategoryList categories={["All categories", ...categories]} />
         </div>
 
-        <div
-            class="grid grid-cols-2 gap-x-16 gap-y-32 mb-60 max-sm:mb-36 max-sm:grid-cols-1 max-sm:gap-y-14"
-        >
-            {
-                posts.map(post => {
-                    const author = authors.find(
-                        author => author.slug === post.data.author,
-                    )
-
-                    if (!author) {
-                        return null
-                    }
-
-                    return <Post author={author} post={post} />
-                })
-            }
+        <div class="mb-60 max-sm:mb-36">
+            <PostList posts={posts} />
         </div>
     </main>
 </Layout>

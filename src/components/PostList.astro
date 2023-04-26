@@ -1,0 +1,30 @@
+---
+import {CollectionEntry, getCollection} from "astro:content"
+import Post from "./Post.astro"
+
+const authors = await getCollection("authors")
+
+type Props = {
+    posts: CollectionEntry<"posts">[]
+}
+
+const {posts} = Astro.props
+---
+
+<div
+    class="grid grid-cols-2 gap-x-16 gap-y-32 max-sm:grid-cols-1 max-sm:gap-y-14"
+>
+    {
+        posts.map(post => {
+            const author = authors.find(
+                author => author.slug === post.data.author,
+            )
+
+            if (!author) {
+                return null
+            }
+
+            return <Post author={author} post={post} />
+        })
+    }
+</div>

@@ -1,0 +1,14 @@
+---
+import type {CollectionEntry} from "astro:content"
+import Category from "./Category.astro"
+
+type Props = {
+    categories: CollectionEntry<"posts">["data"]["categories"]
+}
+
+const {categories} = Astro.props
+---
+
+<div class="flex gap-x-4 overflow-x-auto">
+    {categories.map(category => <Category category={category} />)}
+</div>

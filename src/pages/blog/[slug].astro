@@ -2,6 +2,8 @@
 import {CollectionEntry, getCollection} from "astro:content"
 import Layout from "../../layouts/Layout.astro"
 import Category from "../../components/Category.astro"
+import PostList from "../../components/PostList.astro"
+import CategoryList from "../../components/CategoryList.astro"
 
 export async function getStaticPaths() {
     const authors = await getCollection("authors")
@@ -9,6 +11,7 @@ export async function getStaticPaths() {
 
     const paths = posts.map(post => {
         const author = authors.find(author => author.slug === post.data.author)
+        const relatedPosts = posts.filter(p => p.slug !== post.slug)
 
         return {
             params: {
@@ -17,6 +20,7 @@ export async function getStaticPaths() {
             props: {
                 author,
                 post,
+                relatedPosts,
             },
         }
     })
@@ -27,9 +31,10 @@ export async function getStaticPaths() {
 type Props = {
     author: CollectionEntry<"authors">
     post: CollectionEntry<"posts">
+    relatedPosts: CollectionEntry<"posts">[]
 }
 
-const {author, post} = Astro.props
+const {author, post, relatedPosts} = Astro.props
 const {Content} = await post.render()
 ---
 
@@ -39,12 +44,8 @@ const {Content} = await post.render()
             ← <a href="/" class="underline">Back to all blogs</a>
         </div>
 
-        <div class="flex gap-x-4 mb-4">
-            {
-                post.data.categories.map(category => (
-                    <Category category={category} />
-                ))
-            }
+        <div class="mb-4">
+            <CategoryList categories={post.data.categories} />
         </div>
 
         <p class="text-6xl text-teal-900 mb-11 font-bold">
@@ -72,7 +73,7 @@ const {Content} = await post.render()
         <img
             src={post.data.image}
             alt={post.data.title}
-            class="rounded-2xl shadow-xl mb-28"
+            class="rounded-2xl shadow-xl mb-28 aspect-thumbnail object-cover"
         />
 
         <div class="relative mb-44">
@@ -132,14 +133,16 @@ const {Content} = await post.render()
         </div>
     </div>
 
-    <div class="bg-teal-100/10 pt-14 px-24 pb-44 relative">
+    <div
+        class="bg-teal-100/10 pt-14 px-24 pb-44 relative border-b border-teal-900"
+    >
         <div class="flex items-center absolute top-0 -translate-y-1/2">
             <span class="font-bold text-teal-900 text-4xl mr-12">Comments</span>
 
             <span
                 class="border border-teal-900 text-teal-900 rounded-full px-4 py-2 font-bold text-xl"
             >
-                4
+                0
             </span>
         </div>
 
@@ -164,6 +167,11 @@ const {Content} = await post.render()
         </form>
 
         <p>comments go here</p>
+    </div>
+
+    <div class="px-24 pt-56 pb-80">
+        <p class="font-bold text-teal-900 text-4xl mb-16">Related posts</p>
+        <PostList posts={relatedPosts} />
     </div>
 </Layout>
 

@@ -1,7 +1,7 @@
 ---
 import type {CollectionEntry} from "astro:content"
 
-import Category from "./Category.astro"
+import CategoryList from "./CategoryList.astro"
 
 type Props = {
     author: CollectionEntry<"authors">
@@ -16,12 +16,12 @@ const {author, post} = Astro.props
         <img
             src={post.data.image}
             alt={post.data.title}
-            class="rounded-2xl shadow-xl mb-6"
+            class="rounded-2xl shadow-xl mb-6 aspect-thumbnail object-cover"
         />
     </a>
 
-    <div class="flex gap-x-4 mb-4">
-        {post.data.categories.map(category => <Category category={category} />)}
+    <div class="mb-4">
+        <CategoryList categories={post.data.categories} />
     </div>
 
     <a
