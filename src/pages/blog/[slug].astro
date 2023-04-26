@@ -1,7 +1,7 @@
 ---
 import {CollectionEntry, getCollection} from "astro:content"
+
 import Layout from "../../layouts/Layout.astro"
-import Category from "../../components/Category.astro"
 import PostList from "../../components/PostList.astro"
 import CategoryList from "../../components/CategoryList.astro"
 
@@ -54,15 +54,20 @@ const {Content} = await post.render()
 
         <div class="flex justify-between items-center mb-10">
             <div class="flex items-center gap-x-2">
-                <img
-                    src={author?.data.image}
-                    alt={author?.data.name}
-                    class="rounded-full border-2 border-teal-500 aspect-square w-12 object-cover"
-                />
+                <a href={`/author/${author?.slug}`}>
+                    <img
+                        src={author?.data.image}
+                        alt={author?.data.name}
+                        class="rounded-full border-2 border-teal-500 aspect-square w-12 object-cover"
+                    />
+                </a>
 
-                <span class="text-zinc-600 text-2xl font-bold">
+                <a
+                    href={`/author/${author?.slug}`}
+                    class="text-zinc-600 text-2xl font-bold"
+                >
                     {author?.data.name}
-                </span>
+                </a>
             </div>
 
             <span class="text-zinc-600 text-xl">

@@ -6,8 +6,9 @@ type Props = {
 const {category} = Astro.props
 ---
 
-<span
+<a
+    href={`/category/${category}`}
     class="text-teal-900 rounded-3xl uppercase text-xl p-2 border-2 border-teal-900 whitespace-nowrap"
 >
     {category}
-</span>
+</a>

@@ -40,15 +40,20 @@ const {author, post} = Astro.props
 
         <div class="flex justify-between items-center">
             <div class="flex items-center gap-x-2">
-                <img
-                    src={author?.data.image}
-                    alt={author?.data.name}
-                    class="rounded-full border-2 border-teal-500 aspect-square w-12 object-cover"
-                />
+                <a href={`/author/${author?.slug}`}>
+                    <img
+                        src={author?.data.image}
+                        alt={author?.data.name}
+                        class="rounded-full border-2 border-teal-500 aspect-square w-12 object-cover"
+                    />
+                </a>
 
-                <span class="text-zinc-900 text-2xl font-bold">
+                <a
+                    href={`/author/${author?.slug}`}
+                    class="text-zinc-900 text-2xl font-bold"
+                >
                     {author?.data.name}
-                </span>
+                </a>
             </div>
 
             <span class="text-zinc-700 text-xl">

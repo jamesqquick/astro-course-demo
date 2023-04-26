@@ -36,11 +36,12 @@ const {author, post} = Astro.props
     </p>
 
     <div class="flex justify-between items-center">
-        <div class="flex items-center gap-x-2">
-            <span class="text-zinc-900 text-2xl font-bold">
-                {author?.data.name}
-            </span>
-        </div>
+        <a
+            href={`/author/${author?.slug}`}
+            class="text-zinc-900 text-2xl font-bold"
+        >
+            {author?.data.name}
+        </a>
 
         <span class="text-zinc-700 text-xl">
             {post.data.date}
