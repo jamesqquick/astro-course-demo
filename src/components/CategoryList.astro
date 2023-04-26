@@ -9,6 +9,6 @@ type Props = {
 const {categories} = Astro.props
 ---
 
-<div class="flex gap-x-4 overflow-x-auto">
+<div class="flex gap-x-4 items-center overflow-x-auto">
     {categories.map(category => <Category category={category} />)}
 </div>
