@@ -6,11 +6,14 @@ import PostList from "../../components/PostList.astro"
 import CategoryList from "../../components/CategoryList.astro"
 
 export async function getStaticPaths() {
+    //TODO Can we query author by slug directly instead of querying all authors?
     const authors = await getCollection("authors")
     const posts = await getCollection("posts")
 
     const paths = posts.map(post => {
+        //TODO: Same as above - potential to query author by slug directly?
         const author = authors.find(author => author.slug === post.data.author)
+        //TODO: replace with related posts based on category
         const relatedPosts = posts.filter(p => p.slug !== post.slug)
 
         return {
@@ -36,6 +39,10 @@ type Props = {
 
 const {author, post, relatedPosts} = Astro.props
 const {Content} = await post.render()
+
+//TODO: replace title with post title
+//TODO: replace img tags with Astro image component
+//TODO: should we use Tailwind prose on the content section?
 ---
 
 <Layout title="Rhythm Nation">
@@ -181,6 +188,7 @@ const {Content} = await post.render()
 </Layout>
 
 <script>
+    //? This is interesting. I wonder if there's any reasonable action we could take here?
     const shareButton = document.getElementById("share")
 
     shareButton?.addEventListener("click", async () => {

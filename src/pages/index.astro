@@ -13,6 +13,7 @@ const featuredPosts = allPosts.filter(post => post.data.featured)
 // TODO: optimize this
 const authors = await getCollection("authors")
 
+//TODO: wrap category list onto on line sooner and wrap the list instead of showing overflow
 const categories = Array.from(
     allPosts.reduce((categories, post) => {
         post.data.categories.forEach(category => categories.add(category))
