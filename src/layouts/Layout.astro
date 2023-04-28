@@ -4,18 +4,6 @@ import "@fontsource/cabin"
 import Header from "../components/Header.astro"
 import Footer from "../components/Footer.astro"
 
-//TODO missing metadata properties:
-// og:type
-// og:url
-// og:title
-// og:description
-// og:image
-// twitter:card
-// twitter:url
-// twitter:title
-// twitter:description
-// twitter:image
-
 export interface Props {
     title: string
 }
@@ -31,6 +19,22 @@ const {title} = Astro.props
         <link rel="icon" type="image/png" href="/heartbeat.png" />
         <meta name="generator" content={Astro.generator} />
         <title>{title}</title>
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://rhythm.nation" />
+        <meta property="og:title" content="Rhythm Nation" />
+        <meta
+            property="og:description"
+            content="A community of music producers and enthusiasts"
+        />
+        <meta property="og:image" content="/heartbeat.png" />
+        <meta property="twitter:card" content="summary_large_image" />
+        <meta property="twitter:url" content="https://rhythm.nation" />
+        <meta property="twitter:title" content="Rhythm Nation" />
+        <meta
+            property="twitter:description"
+            content="A community of music producers and enthusiasts"
+        />
+        <meta property="twitter:image" content="/heartbeat.png" />
     </head>
 
     <body class="min-h-screen grid grid-rows-[auto,1fr,auto]">
