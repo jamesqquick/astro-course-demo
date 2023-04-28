@@ -40,11 +40,9 @@ type Props = {
 
 const {author, post, relatedPosts} = Astro.props
 const {Content} = await post.render()
-
-//TODO: replace title with post title
 ---
 
-<Layout title="Rhythm Nation">
+<Layout title={post.data.title}>
     <main class="max-w-5xl w-full justify-self-center">
         <div class="text-zinc-500 text-2xl mb-16">
             ← <a href="/" class="underline">Back to all blogs</a>
