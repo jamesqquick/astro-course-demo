@@ -1,5 +1,6 @@
 ---
 import type {CollectionEntry} from "astro:content"
+import {Image} from "@astrojs/image/components"
 
 import CategoryList from "./CategoryList.astro"
 
@@ -17,9 +18,12 @@ const {author, post} = Astro.props
     class="grid grid-cols-2 gap-x-12 gap-y-5 mb-28 max-lg:grid-cols-1 max-sm:mb-12"
 >
     <a href={`/blog/${post.slug}`}>
-        <img
+        <Image
             src={post.data.image}
             alt={post.data.title}
+            width={1024}
+            height={1024 / 1.5}
+            format="webp"
             class="rounded-2xl aspect-thumbnail object-cover"
         />
     </a>
@@ -43,9 +47,12 @@ const {author, post} = Astro.props
         <div class="flex justify-between items-center">
             <div class="flex items-center gap-x-2">
                 <a href={`/author/${author?.slug}`}>
-                    <img
+                    <Image
                         src={author?.data.image}
                         alt={author?.data.name}
+                        width={48}
+                        height={48}
+                        format="webp"
                         class="rounded-full border-2 border-teal-500 aspect-square w-12 object-cover"
                     />
                 </a>

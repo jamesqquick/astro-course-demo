@@ -1,8 +1,19 @@
+---
+import {Image} from "@astrojs/image/components"
+---
+
 <header
     class="flex justify-between items-center px-24 py-12 max-sm:px-5 max-sm:py-10 max-w-7xl justify-self-center w-full"
 >
     <div class="flex gap-x-4 items-center">
-        <img src="/heartbeat.png" alt="rhythm nation logo" class="w-16" />
+        <Image
+            src="/heartbeat.png"
+            alt="rhythm nation logo"
+            width={64}
+            height={64}
+            format="webp"
+            class="w-16"
+        />
         <p class="uppercase text-3xl text-zinc-900">blog</p>
     </div>
 

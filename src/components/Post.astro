@@ -1,5 +1,6 @@
 ---
 import type {CollectionEntry} from "astro:content"
+import {Image} from "@astrojs/image/components"
 
 import CategoryList from "./CategoryList.astro"
 
@@ -13,9 +14,12 @@ const {author, post} = Astro.props
 
 <article>
     <a href={`/blog/${post.slug}`}>
-        <img
+        <Image
             src={post.data.image}
             alt={post.data.title}
+            width={1024}
+            height={1024 / 1.5}
+            format="webp"
             class="rounded-2xl shadow-xl mb-6 aspect-thumbnail object-cover"
         />
     </a>

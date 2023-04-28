@@ -4,6 +4,7 @@ import {CollectionEntry, getCollection} from "astro:content"
 import Layout from "../../layouts/Layout.astro"
 import PostList from "../../components/PostList.astro"
 import CategoryList from "../../components/CategoryList.astro"
+import {Image} from "@astrojs/image/components"
 
 export async function getStaticPaths() {
     //TODO Can we query author by slug directly instead of querying all authors?
@@ -41,7 +42,6 @@ const {author, post, relatedPosts} = Astro.props
 const {Content} = await post.render()
 
 //TODO: replace title with post title
-//TODO: replace img tags with Astro image component
 ---
 
 <Layout title="Rhythm Nation">
@@ -61,9 +61,12 @@ const {Content} = await post.render()
         <div class="flex justify-between items-center mb-10">
             <div class="flex items-center gap-x-2">
                 <a href={`/author/${author?.slug}`}>
-                    <img
+                    <Image
                         src={author?.data.image}
                         alt={author?.data.name}
+                        width={48}
+                        height={48}
+                        format="webp"
                         class="rounded-full border-2 border-teal-500 aspect-square w-12 object-cover"
                     />
                 </a>
@@ -81,9 +84,12 @@ const {Content} = await post.render()
             </span>
         </div>
 
-        <img
+        <Image
             src={post.data.image}
             alt={post.data.title}
+            width={1024}
+            height={1024 / 1.5}
+            format="webp"
             class="rounded-2xl shadow-xl mb-28 aspect-thumbnail object-cover"
         />
 
