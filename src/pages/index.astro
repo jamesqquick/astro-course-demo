@@ -13,7 +13,6 @@ const featuredPosts = allPosts.filter(post => post.data.featured)
 // TODO: optimize this
 const authors = await getCollection("authors")
 
-//TODO: wrap category list onto on line sooner and wrap the list instead of showing overflow
 const categories = Array.from(
     allPosts.reduce((categories, post) => {
         post.data.categories.forEach(category => categories.add(category))
@@ -50,7 +49,9 @@ const categories = Array.from(
 
         <hr class="w-full border border-teal-900 mb-16 max-sm:mb-10" />
 
-        <div class="flex gap-x-14 gap-y-3 mb-16 max-sm:flex-col">
+        <div
+            class="grid grid-cols-[auto,1fr] gap-x-14 gap-y-3 mb-16 max-lg:grid-cols-1"
+        >
             <span class="font-bold text-5xl text-teal-900">Recent posts</span>
             <CategoryList categories={["All categories", ...categories]} />
         </div>
