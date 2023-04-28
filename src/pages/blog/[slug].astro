@@ -42,7 +42,6 @@ const {Content} = await post.render()
 
 //TODO: replace title with post title
 //TODO: replace img tags with Astro image component
-//TODO: should we use Tailwind prose on the content section?
 ---
 
 <Layout title="Rhythm Nation">
@@ -89,7 +88,9 @@ const {Content} = await post.render()
         />
 
         <div class="relative mb-44">
-            <Content />
+            <div class="prose prose-2xl">
+                <Content />
+            </div>
 
             <div
                 class="flex flex-col text-zinc-500 gap-y-9 absolute top-0 -left-24"
