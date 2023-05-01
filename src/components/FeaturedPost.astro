@@ -10,7 +10,6 @@ type Props = {
 }
 
 const {author, post} = Astro.props
-//TODO author page doesn't work but I think you know that already
 ---
 
 <article
@@ -45,6 +44,7 @@ const {author, post} = Astro.props
 
         <div class="flex justify-between items-center">
             <div class="flex items-center gap-x-2">
+                <!-- TODO: implement author pages -->
                 <a href={`/author/${author?.slug}`}>
                     <Image
                         src={author?.data.image}

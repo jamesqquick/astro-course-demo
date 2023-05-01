@@ -7,15 +7,20 @@ import CategoryList from "../../components/CategoryList.astro"
 import {Image} from "@astrojs/image/components"
 
 export async function getStaticPaths() {
-    //TODO Can we query author by slug directly instead of querying all authors?
+    //TODO: query author by slug
     const authors = await getCollection("authors")
     const posts = await getCollection("posts")
 
     const paths = posts.map(post => {
-        //TODO: Same as above - potential to query author by slug directly?
+        //TODO: query author by slug
         const author = authors.find(author => author.slug === post.data.author)
-        //TODO: replace with related posts based on category
-        const relatedPosts = posts.filter(p => p.slug !== post.slug)
+
+        const remainingPosts = posts.filter(p => p.slug !== post.slug)
+        const relatedPosts = remainingPosts.filter(p =>
+            p.data.categories.some(category =>
+                post.data.categories.includes(category),
+            ),
+        )
 
         return {
             params: {
