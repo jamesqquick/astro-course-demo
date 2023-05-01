@@ -14,17 +14,5 @@ const {posts} = Astro.props
 <div
     class="grid grid-cols-2 gap-x-16 gap-y-32 max-sm:grid-cols-1 max-sm:gap-y-14"
 >
-    {
-        posts.map(post => {
-            const author = authors.find(
-                author => author.slug === post.data.author,
-            )
-
-            if (!author) {
-                return null
-            }
-
-            return <Post author={author} post={post} />
-        })
-    }
+    {posts.map(post => <Post post={post} />)}
 </div>

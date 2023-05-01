@@ -1,5 +1,5 @@
 ---
-import {CollectionEntry, getCollection} from "astro:content"
+import {CollectionEntry, getCollection, getEntryBySlug} from "astro:content"
 
 import Layout from "../../layouts/Layout.astro"
 import PostList from "../../components/PostList.astro"
@@ -7,15 +7,12 @@ import CategoryList from "../../components/CategoryList.astro"
 import {Image} from "@astrojs/image/components"
 
 export async function getStaticPaths() {
-    //TODO: query author by slug
-    const authors = await getCollection("authors")
     const posts = await getCollection("posts")
 
-    const paths = posts.map(post => {
-        //TODO: query author by slug
-        const author = authors.find(author => author.slug === post.data.author)
-
+    const promises = posts.map(async post => {
+        const author = await getEntryBySlug("authors", post.data.author)
         const remainingPosts = posts.filter(p => p.slug !== post.slug)
+
         const relatedPosts = remainingPosts.filter(p =>
             p.data.categories.some(category =>
                 post.data.categories.includes(category),
@@ -34,6 +31,7 @@ export async function getStaticPaths() {
         }
     })
 
+    const paths = await Promise.all(promises)
     return paths
 }
 
@@ -63,23 +61,28 @@ const {Content} = await post.render()
 
         <div class="flex justify-between items-center mb-10">
             <div class="flex items-center gap-x-2">
-                <a href={`/author/${author?.slug}`}>
-                    <Image
-                        src={author?.data.image}
-                        alt={author?.data.name}
-                        width={48}
-                        height={48}
-                        format="webp"
-                        class="rounded-full border-2 border-teal-500 aspect-square w-12 object-cover"
-                    />
-                </a>
-
-                <a
-                    href={`/author/${author?.slug}`}
-                    class="text-zinc-600 text-2xl font-bold"
-                >
-                    {author?.data.name}
-                </a>
+                {
+                    author ? (
+                        <>
+                            <a href={`/author/${author.slug}`}>
+                                <Image
+                                    src={author.data.image}
+                                    alt={author.data.name}
+                                    width={48}
+                                    height={48}
+                                    format="webp"
+                                    class="rounded-full border-2 border-teal-500 aspect-square w-12 object-cover"
+                                />
+                            </a>
+                            <a
+                                href={`/author/${author.slug}`}
+                                class="text-zinc-600 text-2xl font-bold"
+                            >
+                                {author.data.name}
+                            </a>
+                        </>
+                    ) : null
+                }
             </div>
 
             <span class="text-zinc-600 text-xl">

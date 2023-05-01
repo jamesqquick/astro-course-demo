@@ -1,15 +1,15 @@
 ---
-import type {CollectionEntry} from "astro:content"
+import {CollectionEntry, getEntryBySlug} from "astro:content"
 import {Image} from "@astrojs/image/components"
 
 import CategoryList from "./CategoryList.astro"
 
 type Props = {
-    author: CollectionEntry<"authors">
     post: CollectionEntry<"posts">
 }
 
-const {author, post} = Astro.props
+const {post} = Astro.props
+const author = await getEntryBySlug("authors", post.data.author)
 ---
 
 <article>
@@ -40,12 +40,16 @@ const {author, post} = Astro.props
     </p>
 
     <div class="flex justify-between items-center">
-        <a
-            href={`/author/${author?.slug}`}
-            class="text-zinc-900 text-2xl font-bold"
-        >
-            {author?.data.name}
-        </a>
+        {
+            author ? (
+                <a
+                    href={`/author/${author.slug}`}
+                    class="text-zinc-900 text-2xl font-bold"
+                >
+                    {author.data.name}
+                </a>
+            ) : null
+        }
 
         <span class="text-zinc-700 text-xl">
             {post.data.date}

@@ -5,7 +5,6 @@ import Layout from "../../layouts/Layout.astro"
 import PostList from "../../components/PostList.astro"
 
 export async function getStaticPaths() {
-    //TODO: query author by slug
     const authors = await getCollection("authors")
     const posts = await getCollection("posts")
 

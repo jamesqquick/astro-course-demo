@@ -9,16 +9,8 @@ import CategoryList from "../components/CategoryList.astro"
 const allPosts = await getCollection("posts")
 const posts = allPosts.filter(post => !post.data.featured)
 const featuredPosts = allPosts.filter(post => post.data.featured)
-
-// TODO: optimize this
-const authors = await getCollection("authors")
-
-const categories = Array.from(
-    allPosts.reduce((categories, post) => {
-        post.data.categories.forEach(category => categories.add(category))
-        return categories
-    }, new Set<string>()),
-)
+const allCategories = allPosts.flatMap(post => post.data.categories)
+const categories = Array.from(new Set(allCategories))
 ---
 
 <Layout title="Rhythm Nation">
@@ -33,19 +25,7 @@ const categories = Array.from(
             Join the Community and learn from Music Producers and Enthusiasts
         </p>
 
-        {
-            featuredPosts.map(post => {
-                const author = authors.find(
-                    author => author.slug === post.data.author,
-                )
-
-                if (!author) {
-                    return null
-                }
-
-                return <FeaturedPost author={author} post={post} />
-            })
-        }
+        {featuredPosts.map(post => <FeaturedPost post={post} />)}
 
         <hr class="w-full border border-teal-900 mb-16 max-sm:mb-10" />
 
