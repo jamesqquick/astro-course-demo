@@ -1,0 +1,53 @@
+---
+import {CollectionEntry, getCollection} from "astro:content"
+
+import Layout from "../../layouts/Layout.astro"
+import PostList from "../../components/PostList.astro"
+
+export async function getStaticPaths() {
+    //TODO: query author by slug
+    const authors = await getCollection("authors")
+    const posts = await getCollection("posts")
+
+    const paths = authors.map(author => {
+        const postsByAuthor = posts.filter(
+            post => post.data.author === author.slug,
+        )
+
+        return {
+            params: {
+                slug: author.slug,
+            },
+            props: {
+                author,
+                posts: postsByAuthor,
+            },
+        }
+    })
+
+    return paths
+}
+
+type Props = {
+    author: CollectionEntry<"authors">
+    posts: CollectionEntry<"posts">[]
+}
+
+const {author, posts} = Astro.props
+---
+
+<Layout title={author.data.name}>
+    <main class="max-w-5xl w-full justify-self-center">
+        <div class="text-zinc-500 text-2xl mb-16">
+            ← <a href="/" class="underline">Back to all blogs</a>
+        </div>
+
+        <p class="text-6xl text-teal-900 mb-16 font-bold">
+            Posts by {author.data.name}
+        </p>
+
+        <div class="mb-60">
+            <PostList posts={posts} />
+        </div>
+    </main>
+</Layout>
