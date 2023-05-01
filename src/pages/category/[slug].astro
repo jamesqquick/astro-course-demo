@@ -1,0 +1,56 @@
+---
+import {CollectionEntry, getCollection} from "astro:content"
+
+import Layout from "../../layouts/Layout.astro"
+import PostList from "../../components/PostList.astro"
+import Category from "../../components/Category.astro"
+
+export async function getStaticPaths() {
+    const posts = await getCollection("posts")
+    const allCategories = posts.flatMap(post => post.data.categories)
+    const categories = Array.from(new Set(allCategories))
+
+    const paths = categories.map(category => {
+        const postsInCategory = posts.filter(post =>
+            post.data.categories.includes(category),
+        )
+
+        return {
+            params: {
+                slug: category,
+            },
+            props: {
+                category,
+                posts: postsInCategory,
+            },
+        }
+    })
+
+    return paths
+}
+
+type Props = {
+    category: string
+    posts: CollectionEntry<"posts">[]
+}
+
+const {category, posts} = Astro.props
+---
+
+<Layout title={category}>
+    <main class="max-w-5xl w-full justify-self-center">
+        <div class="text-zinc-500 text-2xl mb-16">
+            ← <a href="/" class="underline">Back to all blogs</a>
+        </div>
+
+        <p
+            class="flex items-end gap-x-4 text-6xl text-teal-900 mb-16 font-bold"
+        >
+            Posts tagged with <Category category={category} />
+        </p>
+
+        <div class="mb-60">
+            <PostList posts={posts} />
+        </div>
+    </main>
+</Layout>
