@@ -46,6 +46,7 @@ const {author, post, relatedPosts} = Astro.props
 const {Content} = await post.render()
 ---
 
+<!-- TODO: table of contents --><!-- TODO: reading time -->
 <Layout title={post.data.title}>
     <main class="max-w-5xl w-full justify-self-center">
         <div class="text-zinc-500 text-2xl mb-16">
