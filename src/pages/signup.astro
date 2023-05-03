@@ -1,0 +1,47 @@
+---
+import Layout from "../layouts/Layout.astro"
+---
+
+<Layout title="Rhythm Nation">
+    <div class="bg-white max-w-7xl justify-self-center self-center">
+        <p class="text-teal-900 font-bold text-5xl mb-20">Sign up</p>
+
+        <form>
+            <label for="email" class="mb-2 block text-teal-900">
+                Email address
+            </label>
+
+            <input
+                class="border-teal-900 border w-full mb-10 rounded-lg px-6 py-3"
+                type="email"
+                name="email"
+                id="email"
+            />
+
+            <label for="password" class="mb-2 block text-teal-900">
+                Password
+            </label>
+
+            <input
+                class="border-teal-900 border w-full mb-16 rounded-lg px-6 py-3"
+                type="password"
+                name="password"
+                id="password"
+            />
+
+            <button
+                type="submit"
+                class="text-white text-2xl bg-teal-900 w-full rounded-lg px-6 py-3 mb-11"
+            >
+                Sign up
+            </button>
+        </form>
+
+        <p class="text-zinc-500 text-lg text-center">
+            Already have an account? <a
+                href="/login"
+                class="text-teal-900 underline">Login</a
+            >
+        </p>
+    </div>
+</Layout>
