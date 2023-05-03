@@ -18,96 +18,10 @@ import {Image} from "@astrojs/image/components"
         <p class="uppercase text-3xl text-zinc-900">blog</p>
     </div>
 
-    <button
-        id="loginButton"
+    <a
+        href="/login"
         class="bg-teal-900 text-white py-3 px-6 rounded-xl text-xl"
     >
         Login
-    </button>
-
-    <div
-        id="loginModal"
-        class="hidden absolute top-1/2 left-1/2 bg-white shadow-xl px-20 py-16 rounded-2xl -translate-x-1/2 -translate-y-1/2"
-    >
-        <div class="flex flex-col">
-            <div class="flex justify-between items-center mb-20">
-                <p class="text-teal-900 font-bold text-5xl">Login</p>
-
-                <svg
-                    id="loginModalCloseButton"
-                    class="text-zinc-900 cursor-pointer"
-                    width="20"
-                    height="20"
-                    viewBox="0 0 28 28"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                >
-                    <path
-                        d="M1 27L27 1M1 1L27 27"
-                        stroke="currentColor"
-                        stroke-width="1.5"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                    >
-                    </path>
-                </svg>
-            </div>
-
-            <form>
-                <label for="email" class="mb-2 block text-teal-900">
-                    Email address
-                </label>
-
-                <input
-                    class="border-teal-900 border w-full mb-10 rounded-lg px-6 py-3"
-                    type="email"
-                    name="email"
-                    id="email"
-                />
-
-                <label for="password" class="mb-2 block text-teal-900">
-                    Password
-                </label>
-
-                <input
-                    class="border-teal-900 border w-full mb-16 rounded-lg px-6 py-3"
-                    type="password"
-                    name="password"
-                    id="password"
-                />
-
-                <button
-                    type="submit"
-                    class="text-white text-2xl bg-teal-900 w-full rounded-lg px-6 py-3 mb-11"
-                >
-                    Login
-                </button>
-            </form>
-
-            <p class="text-zinc-500 text-lg text-center">
-                Don't have an account? <a
-                    href="/signup"
-                    class="text-teal-900 underline">Sign up</a
-                >
-            </p>
-        </div>
-    </div>
+    </a>
 </header>
-
-<script>
-    const loginButton = document.getElementById("loginButton")
-
-    loginButton?.addEventListener("click", () => {
-        const loginModal = document.getElementById("loginModal")
-        loginModal?.classList.remove("hidden")
-    })
-
-    const loginModalCloseButton = document.getElementById(
-        "loginModalCloseButton",
-    )
-
-    loginModalCloseButton?.addEventListener("click", () => {
-        const loginModal = document.getElementById("loginModal")
-        loginModal?.classList.add("hidden")
-    })
-</script>
