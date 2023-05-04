@@ -1,12 +1,33 @@
 ---
 import Layout from "../layouts/Layout.astro"
+import bcrypt from "bcryptjs"
+import {XataClient} from "../xata"
+
+const xata = new XataClient({apiKey: import.meta.env.XATA_API_KEY})
+
+if (Astro.request.method === "POST") {
+    const data = await Astro.request.formData()
+
+    const email = data.get("email") as string
+    const password = data.get("password") as string
+
+    const salt = bcrypt.genSaltSync(10)
+    const hash = bcrypt.hashSync(password, salt)
+
+    await xata.db.users.create({
+        email,
+        password: hash,
+    })
+
+    return Astro.redirect("/", 302)
+}
 ---
 
 <Layout title="Rhythm Nation">
     <div class="bg-white max-w-7xl justify-self-center self-center">
         <p class="text-teal-900 font-bold text-5xl mb-20">Sign up</p>
 
-        <form>
+        <form method="POST">
             <label for="email" class="mb-2 block text-teal-900">
                 Email address
             </label>

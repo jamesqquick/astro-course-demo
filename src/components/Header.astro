@@ -1,5 +1,7 @@
 ---
 import {Image} from "@astrojs/image/components"
+
+const userEmail = Astro.cookies.get("userEmail")
 ---
 
 <header
@@ -18,10 +20,21 @@ import {Image} from "@astrojs/image/components"
         <p class="uppercase text-3xl text-zinc-900">blog</p>
     </a>
 
-    <a
-        href="/login"
-        class="bg-teal-900 text-white py-3 px-6 rounded-xl text-xl"
-    >
-        Login
-    </a>
+    {
+        userEmail.value ? (
+            <a
+                href="/logout"
+                class="bg-teal-900 text-white py-3 px-6 rounded-xl text-xl"
+            >
+                Logout
+            </a>
+        ) : (
+            <a
+                href="/login"
+                class="bg-teal-900 text-white py-3 px-6 rounded-xl text-xl"
+            >
+                Login
+            </a>
+        )
+    }
 </header>
