@@ -1,48 +1,48 @@
 ---
-import {CollectionEntry, getCollection, getEntryBySlug} from "astro:content"
+import {getCollection, getEntryBySlug} from "astro:content"
 import {Image} from "@astrojs/image/components"
+import {format} from "date-fns"
 
 import Layout from "../../layouts/Layout.astro"
 import PostList from "../../components/PostList.astro"
 import CategoryList from "../../components/CategoryList.astro"
 import Share from "../../components/Share.astro"
+import {XataClient} from "../../xata"
 
-export async function getStaticPaths() {
-    const posts = await getCollection("posts")
+const xata = new XataClient({apiKey: import.meta.env.XATA_API_KEY})
 
-    const promises = posts.map(async post => {
-        const author = await getEntryBySlug("authors", post.data.author)
-        const remainingPosts = posts.filter(p => p.slug !== post.slug)
+if (Astro.request.method === "POST") {
+    const data = await Astro.request.formData()
 
-        const relatedPosts = remainingPosts.filter(p =>
-            p.data.categories.some(category =>
-                post.data.categories.includes(category),
-            ),
-        )
+    const post = data.get("post") as string
+    const comment = data.get("comment") as string
+    const user = Astro.cookies.get("userId")
 
-        return {
-            params: {
-                slug: post.slug,
-            },
-            props: {
-                author,
-                post,
-                relatedPosts,
-            },
-        }
+    await xata.db.comments.create({
+        post,
+        text: comment,
+        date: new Date(),
+        user: user.value,
     })
 
-    const paths = await Promise.all(promises)
-    return paths
+    return Astro.redirect("/", 302)
 }
 
-type Props = {
-    author: CollectionEntry<"authors">
-    post: CollectionEntry<"posts">
-    relatedPosts: CollectionEntry<"posts">[]
-}
+const {slug} = Astro.params
 
-const {author, post, relatedPosts} = Astro.props
+const post = await getEntryBySlug("posts", slug as string)
+const author = await getEntryBySlug("authors", post.data.author)
+const posts = await getCollection("posts")
+const remainingPosts = posts.filter(p => p.slug !== post.slug)
+const relatedPosts = remainingPosts.filter(p =>
+    p.data.categories.some(category => post.data.categories.includes(category)),
+)
+
+const comments = await xata.db.comments
+    .select(["id", "text", "date", "user.name"])
+    .filter({post: post.slug})
+    .getMany()
+
 const {Content} = await post.render()
 ---
 
@@ -101,14 +101,11 @@ const {Content} = await post.render()
             class="rounded-2xl shadow-xl mb-28 aspect-thumbnail object-cover"
         />
 
-        <Share post={post} />
-
-        <div class="prose prose-2xl overflow-visible">
+        <div class="prose prose-2xl overflow-visible relative">
             <Content />
+            <Share post={post} />
         </div>
     </main>
-
-    <div class="mt-44"></div>
 
     <div
         class="bg-teal-100/10 pt-14 px-24 pb-44 relative border-b border-teal-900 mt-44"
@@ -123,11 +120,15 @@ const {Content} = await post.render()
             </span>
         </div>
 
-        <form class="grid grid-cols-[1fr,auto] gap-x-3 mb-24 items-end">
+        <form
+            method="POST"
+            class="grid grid-cols-[1fr,auto] gap-x-3 mb-24 items-end"
+        >
             <div class="flex flex-col">
-                <label for="comment" class="text-zinc-900 text-2xl"
-                    >Leave a comment</label
-                >
+                <label for="comment" class="text-zinc-900 text-2xl mb-2">
+                    Leave a comment
+                </label>
+
                 <input
                     type="text"
                     name="comment"
@@ -136,14 +137,54 @@ const {Content} = await post.render()
                 />
             </div>
 
+            <input type="hidden" name="post" id="post" value={post.slug} />
+
             <button
                 type="submit"
                 class="text-2xl text-zinc-100 bg-teal-900 px-6 py-5 rounded-xl my-1"
-                >Add a comment</button
             >
+                Add a comment
+            </button>
         </form>
 
-        <p>comments go here</p>
+        {
+            comments.map((comment, index) => {
+                const initials = comment.user?.name
+                    .split(" ")
+                    .map(part => part[0])
+                    .join("")
+
+                const formattedDate = format(comment.date, "MMM d, yyyy")
+
+                return (
+                    <>
+                        {index !== 0 ? (
+                            <hr class="border-zinc-300 my-8" />
+                        ) : null}
+
+                        <div class="flex gap-x-12 items-start">
+                            <span class="text-teal-900 rounded-full border border-teal-900 font-bold text-xl px-5 py-5">
+                                {initials}
+                            </span>
+
+                            <div>
+                                <span class="text-zinc-700 font-bold text-xl mr-5">
+                                    {comment.user?.name}
+                                </span>
+
+                                <span class="text-zinc-500 text-xl">
+                                    {formattedDate}
+                                </span>
+
+                                <p class="text-zinc-500 text-2xl mt-2">
+                                    {comment.text}
+                                </p>
+                            </div>
+                        </div>
+                    </>
+                )
+            })
+        }
     </div>
 
     <div class="px-24 pt-56 pb-80">

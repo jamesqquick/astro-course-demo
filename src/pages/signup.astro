@@ -8,26 +8,43 @@ const xata = new XataClient({apiKey: import.meta.env.XATA_API_KEY})
 if (Astro.request.method === "POST") {
     const data = await Astro.request.formData()
 
+    const name = data.get("name") as string
     const email = data.get("email") as string
     const password = data.get("password") as string
 
     const salt = bcrypt.genSaltSync(10)
     const hash = bcrypt.hashSync(password, salt)
 
-    await xata.db.users.create({
+    const user = await xata.db.users.create({
+        name,
         email,
         password: hash,
     })
+
+    Astro.cookies.set("userId", user.id)
+    Astro.cookies.set("userName", user.name)
+    Astro.cookies.set("userEmail", user.email as string)
 
     return Astro.redirect("/", 302)
 }
 ---
 
 <Layout title="Rhythm Nation">
-    <div class="bg-white max-w-7xl justify-self-center self-center">
+    <div class="bg-white max-w-7xl justify-self-center self-center mb-32">
         <p class="text-teal-900 font-bold text-5xl mb-20">Sign up</p>
 
         <form method="POST">
+            <label for="name" class="mb-2 block text-teal-900">
+                Full name
+            </label>
+
+            <input
+                class="border-teal-900 border w-full mb-10 rounded-lg px-6 py-3"
+                type="text"
+                name="name"
+                id="name"
+            />
+
             <label for="email" class="mb-2 block text-teal-900">
                 Email address
             </label>

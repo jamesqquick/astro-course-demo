@@ -11,14 +11,17 @@ const tables = [
     name: "users",
     columns: [
       { name: "email", type: "email", unique: true },
-      { name: "password", type: "string" },
+      { name: "password", type: "string", notNull: true, defaultValue: "" },
+      { name: "name", type: "string", notNull: true, defaultValue: "" },
     ],
   },
   {
     name: "comments",
     columns: [
-      { name: "text", type: "text" },
-      { name: "userId", type: "link", link: { table: "users" } },
+      { name: "post", type: "string", notNull: true, defaultValue: "" },
+      { name: "text", type: "text", notNull: true, defaultValue: "" },
+      { name: "user", type: "link", link: { table: "users" } },
+      { name: "date", type: "datetime", notNull: true, defaultValue: "now" },
     ],
   },
 ] as const;

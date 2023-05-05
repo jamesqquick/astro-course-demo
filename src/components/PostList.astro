@@ -1,8 +1,7 @@
 ---
-import {CollectionEntry, getCollection} from "astro:content"
-import Post from "./Post.astro"
+import type {CollectionEntry} from "astro:content"
 
-const authors = await getCollection("authors")
+import Post from "./Post.astro"
 
 type Props = {
     posts: CollectionEntry<"posts">[]
