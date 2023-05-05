@@ -24,8 +24,6 @@ if (Astro.request.method === "POST") {
         date: new Date(),
         user: user.value,
     })
-
-    return Astro.redirect("/", 302)
 }
 
 const {slug} = Astro.params
