@@ -26,7 +26,10 @@ if (Astro.request.method === "POST") {
             Astro.cookies.set("userId", user.id)
             Astro.cookies.set("userEmail", user.email as string)
 
-            return Astro.redirect("/", 302)
+            const url = new URL(Astro.request.url)
+            const redirect = url.searchParams.get("redirect") ?? "/"
+
+            return Astro.redirect(redirect, 302)
         }
     }
 }

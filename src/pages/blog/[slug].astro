@@ -11,12 +11,13 @@ import {XataClient} from "../../xata"
 
 const xata = new XataClient({apiKey: import.meta.env.XATA_API_KEY})
 
+const user = Astro.cookies.get("userId")
+
 if (Astro.request.method === "POST") {
     const data = await Astro.request.formData()
 
     const post = data.get("post") as string
     const comment = data.get("comment") as string
-    const user = Astro.cookies.get("userId")
 
     await xata.db.comments.create({
         post,
@@ -108,7 +109,10 @@ const {Content} = await post.render()
     <div
         class="bg-teal-100/10 pt-14 px-24 pb-44 relative border-b border-teal-900 mt-44"
     >
-        <div class="flex items-center absolute top-0 -translate-y-1/2">
+        <div
+            id="comments"
+            class="flex items-center absolute top-0 -translate-y-1/2"
+        >
             <span class="font-bold text-teal-900 text-4xl mr-12">Comments</span>
 
             <span
@@ -118,32 +122,55 @@ const {Content} = await post.render()
             </span>
         </div>
 
-        <form
-            method="POST"
-            class="grid grid-cols-[1fr,auto] gap-x-3 mb-24 items-end"
-        >
-            <div class="flex flex-col">
-                <label for="comment" class="text-zinc-900 text-2xl mb-2">
-                    Leave a comment
-                </label>
+        {
+            user.value ? (
+                <form
+                    method="POST"
+                    class="grid grid-cols-[1fr,auto] gap-x-3 mb-24 items-end"
+                >
+                    <div class="flex flex-col">
+                        <label
+                            for="comment"
+                            class="text-zinc-900 text-2xl mb-2"
+                        >
+                            Leave a comment
+                        </label>
 
-                <input
-                    type="text"
-                    name="comment"
-                    id="comment"
-                    class="border border-teal-900 rounded-lg text-2xl px-6 py-6"
-                />
-            </div>
+                        <input
+                            type="text"
+                            name="comment"
+                            id="comment"
+                            class="border border-teal-900 rounded-lg text-2xl px-6 py-6"
+                        />
+                    </div>
 
-            <input type="hidden" name="post" id="post" value={post.slug} />
+                    <input
+                        type="hidden"
+                        name="post"
+                        id="post"
+                        value={post.slug}
+                    />
 
-            <button
-                type="submit"
-                class="text-2xl text-zinc-100 bg-teal-900 px-6 py-5 rounded-xl my-1"
-            >
-                Add a comment
-            </button>
-        </form>
+                    <button
+                        type="submit"
+                        class="text-2xl text-zinc-100 bg-teal-900 px-6 py-5 rounded-xl my-1"
+                    >
+                        Add a comment
+                    </button>
+                </form>
+            ) : (
+                <p class="text-zinc-700 text-2xl mt-4 mb-24">
+                    Please
+                    <a
+                        class="text-teal-900 underline"
+                        href={`/login?redirect=/blog/${post.slug}#comments`}
+                    >
+                        login
+                    </a>
+                    to comment.
+                </p>
+            )
+        }
 
         {
             comments.map((comment, index) => {
