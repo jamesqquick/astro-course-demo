@@ -19,6 +19,10 @@ if (Astro.request.method === "POST") {
     const post = data.get("post") as string
     const comment = data.get("comment") as string
 
+    if (!user.value) {
+        return Astro.redirect(`/login?redirect=/blog/${post.slug}#comments`)
+    }
+
     await xata.db.comments.create({
         post,
         text: comment,
