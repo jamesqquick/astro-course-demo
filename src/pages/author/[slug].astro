@@ -1,38 +1,19 @@
 ---
-import {CollectionEntry, getCollection} from "astro:content"
+import {getCollection, getEntryBySlug} from "astro:content"
 
 import Layout from "../../layouts/Layout.astro"
 import PostList from "../../components/PostList.astro"
 
-export async function getStaticPaths() {
-    const authors = await getCollection("authors")
-    const posts = await getCollection("posts")
+const {slug} = Astro.params
 
-    const paths = authors.map(author => {
-        const postsByAuthor = posts.filter(
-            post => post.data.author === author.slug,
-        )
+const author = await getEntryBySlug("authors", slug as string)
 
-        return {
-            params: {
-                slug: author.slug,
-            },
-            props: {
-                author,
-                posts: postsByAuthor,
-            },
-        }
-    })
-
-    return paths
+if (!author) {
+    return Astro.redirect("/404")
 }
 
-type Props = {
-    author: CollectionEntry<"authors">
-    posts: CollectionEntry<"posts">[]
-}
-
-const {author, posts} = Astro.props
+const allPosts = await getCollection("posts")
+const posts = allPosts.filter(post => post.data.author === author.slug)
 ---
 
 <Layout title={author.data.name}>

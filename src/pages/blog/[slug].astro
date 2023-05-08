@@ -34,6 +34,11 @@ if (Astro.request.method === "POST") {
 const {slug} = Astro.params
 
 const post = await getEntryBySlug("posts", slug as string)
+
+if (!post) {
+    return Astro.redirect("/404")
+}
+
 const author = await getEntryBySlug("authors", post.data.author)
 const posts = await getCollection("posts")
 const remainingPosts = posts.filter(p => p.slug !== post.slug)
