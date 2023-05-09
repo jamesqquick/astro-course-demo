@@ -3,15 +3,18 @@ import "@fontsource/cabin"
 
 import Header from "../components/Header.astro"
 import Footer from "../components/Footer.astro"
+import {getThumbnail} from "../cloudinary"
 
 export interface Props {
     title?: string
     description?: string
+    image?: string
 }
 
 const {
     title = "Rhythm Nation",
     description = "A community of music producers and enthusiasts",
+    image = getThumbnail("A community of music producers and enthusiasts"),
 } = Astro.props
 ---
 
@@ -28,12 +31,12 @@ const {
         <meta property="og:url" content={Astro.url} />
         <meta property="og:title" content={title} />
         <meta property="og:description" content={description} />
-        <meta property="og:image" content="/heartbeat.png" />
+        <meta property="og:image" content={image} />
         <meta property="twitter:card" content="summary_large_image" />
         <meta property="twitter:url" content={Astro.url} />
         <meta property="twitter:title" content={title} />
         <meta property="twitter:description" content={description} />
-        <meta property="twitter:image" content="/heartbeat.png" />
+        <meta property="twitter:image" content={image} />
     </head>
 
     <body class="min-h-screen grid grid-rows-[auto,1fr,auto]">

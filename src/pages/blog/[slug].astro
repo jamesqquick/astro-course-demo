@@ -8,6 +8,7 @@ import PostList from "../../components/PostList.astro"
 import CategoryList from "../../components/CategoryList.astro"
 import Share from "../../components/Share.astro"
 import {XataClient} from "../../xata"
+import {getThumbnail} from "../../cloudinary"
 
 const xata = new XataClient({apiKey: import.meta.env.XATA_API_KEY})
 
@@ -54,7 +55,7 @@ const comments = await xata.db.comments
 const {Content} = await post.render()
 ---
 
-<Layout title={post.data.title}>
+<Layout title={post.data.title} image={getThumbnail(post.data.title)}>
     <main class="max-w-5xl w-full justify-self-center">
         <div class="text-zinc-500 text-2xl mb-16">
             ← <a href="/" class="underline">Back to all blogs</a>
