@@ -9,6 +9,7 @@ import CategoryList from "../../components/CategoryList.astro"
 import Share from "../../components/Share.astro"
 import {XataClient} from "../../xata"
 import {getThumbnail} from "../../cloudinary"
+import TableOfContents from "../../components/TableOfContents.astro"
 
 const xata = new XataClient({apiKey: import.meta.env.XATA_API_KEY})
 
@@ -52,7 +53,7 @@ const comments = await xata.db.comments
     .filter({post: post.slug})
     .getMany()
 
-const {Content} = await post.render()
+const {Content, headings} = await post.render()
 ---
 
 <Layout title={post.data.title} image={getThumbnail(post.data.title)}>
@@ -109,9 +110,14 @@ const {Content} = await post.render()
             class="rounded-2xl shadow-xl mb-28 aspect-thumbnail object-cover"
         />
 
-        <div class="prose prose-2xl overflow-visible relative">
-            <Content />
+        <div class="relative flex gap-x-12">
             <Share post={post} />
+
+            <div class="prose prose-2xl overflow-visible relative">
+                <Content />
+            </div>
+
+            <TableOfContents headings={headings} />
         </div>
     </main>
 
