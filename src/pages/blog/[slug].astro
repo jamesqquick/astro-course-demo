@@ -53,7 +53,7 @@ const comments = await xata.db.comments
     .filter({post: post.slug})
     .getMany()
 
-const {Content, headings} = await post.render()
+const {Content, headings, remarkPluginFrontmatter} = await post.render()
 ---
 
 <Layout title={post.data.title} image={getThumbnail(post.data.title)}>
@@ -97,7 +97,7 @@ const {Content, headings} = await post.render()
             </div>
 
             <span class="text-zinc-600 text-xl">
-                {post.data.date}
+                {remarkPluginFrontmatter.minutesRead} | {post.data.date}
             </span>
         </div>
 
