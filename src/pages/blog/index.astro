@@ -1,0 +1,37 @@
+---
+import {getCollection} from "astro:content"
+
+import Layout from "../../layouts/Layout.astro"
+import FeaturedPost from "../../components/FeaturedPost.astro"
+import PostList from "../../components/PostList.astro"
+import CategoryList from "../../components/CategoryList.astro"
+
+const allPosts = await getCollection("posts")
+const featuredPosts = allPosts.filter(post => post.data.featured)
+const allCategories = allPosts.flatMap(post => post.data.categories)
+const categories = Array.from(new Set(allCategories))
+---
+
+<Layout title="Rhythm Nation">
+    <main
+        class="px-24 max-sm:px-5 overflow-hidden max-w-7xl justify-self-center w-full"
+    >
+        <h1 class="text-6xl text-teal-900 font-bold mb-5">
+            Rhythm Nation Blog
+        </h1>
+
+        <p class="text-zinc-900 text-2xl mb-24 max-sm:mb-14">
+            Join the Community and learn from Music Producers and Enthusiasts
+        </p>
+
+        <div
+            class="grid grid-cols-[auto,1fr] gap-x-14 gap-y-3 mb-16 max-lg:grid-cols-1"
+        >
+            <CategoryList categories={["All categories", ...categories]} />
+        </div>
+
+        <div class="mb-60 max-sm:mb-36">
+            <PostList posts={allPosts} />
+        </div>
+    </main>
+</Layout>
