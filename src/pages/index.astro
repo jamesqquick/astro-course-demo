@@ -5,21 +5,17 @@ import Layout from "../layouts/Layout.astro"
 import FeaturedPost from "../components/FeaturedPost.astro"
 import PostList from "../components/PostList.astro"
 import CategoryList from "../components/CategoryList.astro"
+import Pagination from "../components/Pagination.astro"
 
-const currentPage = Number(Astro.url.searchParams.get("page")) || 1
+const page = Number(Astro.url.searchParams.get("page")) || 1
 
 const postsPerPage = 4
-const start = postsPerPage * (currentPage - 1)
+const start = postsPerPage * (page - 1)
 const end = start + postsPerPage
 
 const allPosts = await getCollection("posts")
 const featuredPosts = allPosts.filter(post => post.data.featured)
-const regularPosts = allPosts.filter(post => !post.data.featured)
-const posts = regularPosts.slice(start, end)
-
-const hasPreviousPosts = currentPage > 1
-const hasNextPosts = regularPosts.length > currentPage * postsPerPage
-
+const posts = allPosts.filter(post => !post.data.featured).slice(start, end)
 const allCategories = allPosts.flatMap(post => post.data.categories)
 const categories = Array.from(new Set(allCategories))
 ---
@@ -51,31 +47,6 @@ const categories = Array.from(new Set(allCategories))
             <PostList posts={posts} />
         </div>
 
-        <div class="flex justify-between mb-60 max-sm:mb-36">
-            {
-                hasPreviousPosts ? (
-                    <a
-                        href={`/?page=${currentPage - 1}`}
-                        class="bg-teal-900 text-white py-3 px-6 rounded-xl text-xl"
-                    >
-                        Previous
-                    </a>
-                ) : (
-                    <div />
-                )
-            }
-            {
-                hasNextPosts ? (
-                    <a
-                        href={`/?page=${currentPage + 1}`}
-                        class="bg-teal-900 text-white py-3 px-6 rounded-xl text-xl"
-                    >
-                        Next
-                    </a>
-                ) : (
-                    <div />
-                )
-            }
-        </div>
+        <Pagination page={page} />
     </main>
 </Layout>
