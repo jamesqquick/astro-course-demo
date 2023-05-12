@@ -12,7 +12,7 @@ const posts = allPosts.filter(post => post.data.categories.includes(category))
 ---
 
 <Layout title={category}>
-    <main class="max-w-5xl w-full justify-self-center">
+    <main class="px-24 max-sm:px-5 max-w-5xl w-full justify-self-center">
         <div class="text-zinc-500 text-2xl mb-16">
             ← <a href="/" class="underline">Back to all blogs</a>
         </div>
@@ -20,7 +20,7 @@ const posts = allPosts.filter(post => post.data.categories.includes(category))
         <p
             class="flex items-end gap-x-4 text-6xl text-teal-900 mb-16 font-bold"
         >
-            Posts tagged with <Category category={category} />
+            Posts tagged <Category category={category} />
         </p>
 
         <div class="mb-60">

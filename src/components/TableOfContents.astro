@@ -8,7 +8,7 @@ type Props = {
 const {headings} = Astro.props
 ---
 
-<nav>
+<nav class="max-lg:hidden">
     <ul>
         {
             headings.map(heading => {
