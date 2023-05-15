@@ -123,26 +123,30 @@ const {Content, headings, remarkPluginFrontmatter} = await post.render()
     </main>
 
     <div
-        class="bg-teal-100/10 pt-14 px-24 pb-44 relative border-b border-teal-900 mt-44"
+        class="bg-teal-100/30 pt-14 px-24 pb-44 relative border-b border-teal-900 mt-44"
     >
-        <div
-            id="comments"
-            class="flex items-center absolute top-0 -translate-y-1/2"
-        >
-            <span class="font-bold text-teal-900 text-4xl mr-12">Comments</span>
-
-            <span
-                class="border border-teal-900 text-teal-900 rounded-full px-4 py-2 font-bold text-xl"
+        <div class="max-w-7xl mx-auto">
+            <div
+                id="comments"
+                class="flex items-center absolute top-0 -translate-y-1/2"
             >
-                {comments.length}
-            </span>
-        </div>
+                <span class="font-bold text-teal-900 text-4xl mr-12"
+                    >Comments</span
+                >
 
-        <CommentForm />
-        <CommentList comments={comments} />
+                <span
+                    class="border border-teal-900 text-teal-900 rounded-full px-4 py-2 font-bold text-xl"
+                >
+                    {comments.length}
+                </span>
+            </div>
+
+            <CommentForm />
+            <CommentList comments={comments} />
+        </div>
     </div>
 
-    <div class="px-24 pt-56 pb-80">
+    <div class="px-24 pt-56 pb-80 max-w-7xl mx-auto">
         <p class="font-bold text-teal-900 text-4xl mb-16">Related posts</p>
         <PostList posts={relatedPosts} />
     </div>
