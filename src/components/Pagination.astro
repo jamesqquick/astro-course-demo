@@ -5,7 +5,7 @@ const {page} = Astro.props
 
 const posts = await getCollection("posts", post => !post.data.featured)
 
-const postsPerPage = 4
+const postsPerPage = 6
 const hasPreviousPosts = page > 1
 const hasNextPosts = posts.length > page * postsPerPage
 ---
@@ -14,7 +14,7 @@ const hasNextPosts = posts.length > page * postsPerPage
     {
         hasPreviousPosts ? (
             <a
-                href={`/?page=${page - 1}`}
+                href={`/blog?page=${page - 1}`}
                 class="bg-teal-900 text-white py-3 px-6 rounded-xl text-xl"
             >
                 Previous
@@ -26,7 +26,7 @@ const hasNextPosts = posts.length > page * postsPerPage
     {
         hasNextPosts ? (
             <a
-                href={`/?page=${page + 1}`}
+                href={`/blog?page=${page + 1}`}
                 class="bg-teal-900 text-white py-3 px-6 rounded-xl text-xl"
             >
                 Next
