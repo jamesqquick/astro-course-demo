@@ -5,7 +5,6 @@ import Layout from "../layouts/Layout.astro"
 import FeaturedPost from "../components/FeaturedPost.astro"
 import PostList from "../components/PostList.astro"
 import CategoryList from "../components/CategoryList.astro"
-import Pagination from "../components/Pagination.astro"
 
 const page = Number(Astro.url.searchParams.get("page")) || 1
 
@@ -40,13 +39,20 @@ const categories = Array.from(new Set(allCategories))
             class="grid grid-cols-[auto,1fr] gap-x-14 gap-y-3 mb-16 max-lg:grid-cols-1"
         >
             <span class="font-bold text-5xl text-teal-900">Recent posts</span>
-            <CategoryList categories={["All categories", ...categories]} />
+            <CategoryList categories={categories} />
         </div>
 
         <div class="mb-32">
             <PostList posts={posts} />
         </div>
 
-        <Pagination page={page} />
+        <div class="flex justify-end mb-60 max-sm:mb-36">
+            <a
+                href={`/blog`}
+                class="bg-teal-900 text-white py-3 px-6 rounded-xl text-xl"
+            >
+                Read more
+            </a>
+        </div>
     </main>
 </Layout>
