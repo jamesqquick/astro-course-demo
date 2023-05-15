@@ -11,6 +11,7 @@ import {getThumbnail} from "../../cloudinary"
 import TableOfContents from "../../components/TableOfContents.astro"
 import CommentList from "../../components/CommentList.astro"
 import CommentForm from "../../components/CommentForm.astro"
+import PostMeta from "../../components/PostMeta.astro"
 
 const xata = new XataClient({apiKey: import.meta.env.XATA_API_KEY})
 
@@ -59,7 +60,7 @@ const comments = await xata.db.comments
     .filter({post: post.slug})
     .getMany()
 
-const {Content, headings, remarkPluginFrontmatter} = await post.render()
+const {Content, headings} = await post.render()
 ---
 
 <Layout title={post.data.title} image={getThumbnail(post.data.title)}>
@@ -76,31 +77,7 @@ const {Content, headings, remarkPluginFrontmatter} = await post.render()
             {post.data.title}
         </p>
 
-        <div class="flex justify-between items-center mb-10">
-            <div class="flex items-center gap-x-2">
-                <a href={`/author/${author.slug}`}>
-                    <Image
-                        src={author.data.image}
-                        alt={author.data.name}
-                        width={48}
-                        height={48}
-                        format="webp"
-                        class="rounded-full border-2 border-teal-500 aspect-square w-12 object-cover"
-                    />
-                </a>
-
-                <a
-                    href={`/author/${author.slug}`}
-                    class="text-zinc-600 text-2xl font-bold"
-                >
-                    {author.data.name}
-                </a>
-            </div>
-
-            <span class="text-zinc-600 text-xl">
-                {remarkPluginFrontmatter.minutesRead} | {post.data.date}
-            </span>
-        </div>
+        <PostMeta post={post} />
 
         <Image
             src={post.data.image}
