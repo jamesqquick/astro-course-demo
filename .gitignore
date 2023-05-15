@@ -1,4 +1,5 @@
 # build output
+.vercel/
 dist/
 
 # generated types

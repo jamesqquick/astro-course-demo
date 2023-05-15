@@ -3,12 +3,19 @@ import "@fontsource/cabin"
 
 import Header from "../components/Header.astro"
 import Footer from "../components/Footer.astro"
+import {getThumbnail} from "../cloudinary"
 
 export interface Props {
-    title: string
+    title?: string
+    description?: string
+    image?: string
 }
 
-const {title} = Astro.props
+const {
+    title = "Rhythm Nation",
+    description = "A community of music producers and enthusiasts",
+    image = getThumbnail("A community of music producers and enthusiasts"),
+} = Astro.props
 ---
 
 <!DOCTYPE html>
@@ -17,24 +24,19 @@ const {title} = Astro.props
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width" />
         <link rel="icon" type="image/png" href="/heartbeat.png" />
+        <link rel="sitemap" href="/sitemap-index.xml" />
         <meta name="generator" content={Astro.generator} />
         <title>{title}</title>
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://rhythm.nation" />
-        <meta property="og:title" content="Rhythm Nation" />
-        <meta
-            property="og:description"
-            content="A community of music producers and enthusiasts"
-        />
-        <meta property="og:image" content="/heartbeat.png" />
+        <meta property="og:url" content={Astro.url} />
+        <meta property="og:title" content={title} />
+        <meta property="og:description" content={description} />
+        <meta property="og:image" content={image} />
         <meta property="twitter:card" content="summary_large_image" />
-        <meta property="twitter:url" content="https://rhythm.nation" />
-        <meta property="twitter:title" content="Rhythm Nation" />
-        <meta
-            property="twitter:description"
-            content="A community of music producers and enthusiasts"
-        />
-        <meta property="twitter:image" content="/heartbeat.png" />
+        <meta property="twitter:url" content={Astro.url} />
+        <meta property="twitter:title" content={title} />
+        <meta property="twitter:description" content={description} />
+        <meta property="twitter:image" content={image} />
     </head>
 
     <body class="min-h-screen grid grid-rows-[auto,1fr,auto]">

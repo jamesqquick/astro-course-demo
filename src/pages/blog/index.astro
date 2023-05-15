@@ -2,17 +2,23 @@
 import {getCollection} from "astro:content"
 
 import Layout from "../../layouts/Layout.astro"
-import FeaturedPost from "../../components/FeaturedPost.astro"
 import PostList from "../../components/PostList.astro"
 import CategoryList from "../../components/CategoryList.astro"
+import Pagination from "../../components/Pagination.astro"
+
+const page = Number(Astro.url.searchParams.get("page")) || 1
+
+const postsPerPage = 6
+const start = postsPerPage * (page - 1)
+const end = start + postsPerPage
 
 const allPosts = await getCollection("posts")
-const featuredPosts = allPosts.filter(post => post.data.featured)
+const posts = allPosts.slice(start, end)
 const allCategories = allPosts.flatMap(post => post.data.categories)
 const categories = Array.from(new Set(allCategories))
 ---
 
-<Layout title="Rhythm Nation">
+<Layout>
     <main
         class="px-24 max-sm:px-5 overflow-hidden max-w-7xl justify-self-center w-full"
     >
@@ -27,11 +33,14 @@ const categories = Array.from(new Set(allCategories))
         <div
             class="grid grid-cols-[auto,1fr] gap-x-14 gap-y-3 mb-16 max-lg:grid-cols-1"
         >
-            <CategoryList categories={["All categories", ...categories]} />
+            <span class="font-bold text-5xl text-teal-900">Tags</span>
+            <CategoryList categories={categories} />
         </div>
 
-        <div class="mb-60 max-sm:mb-36">
-            <PostList posts={allPosts} />
+        <div class="mb-32">
+            <PostList posts={posts} />
         </div>
+
+        <Pagination page={page} />
     </main>
 </Layout>

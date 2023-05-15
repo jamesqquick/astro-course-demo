@@ -1,0 +1,26 @@
+---
+import type {RecordArray, SelectedPick} from "@xata.io/client"
+
+import type {CommentsRecord} from "../xata"
+import Comment from "./Comment.astro"
+
+type Props = {
+    comments: RecordArray<
+        SelectedPick<CommentsRecord, ("text" | "date" | "id" | "user.name")[]>
+    >
+}
+
+const {comments} = Astro.props
+---
+
+{
+    comments.map((comment, index) => {
+        return (
+            <>
+                {index !== 0 ? <hr class="border-zinc-300 my-8" /> : null}
+
+                <Comment comment={comment} />
+            </>
+        )
+    })
+}
