@@ -1,14 +1,39 @@
 ---
-import {getCollection} from "astro:content"
+import {CollectionEntry, getCollection} from "astro:content"
 
 import Layout from "../../layouts/Layout.astro"
 import PostList from "../../components/PostList.astro"
 import Category from "../../components/Category.astro"
 
-const category = Astro.params.slug as string
+export const getStaticPaths = async () => {
+    const posts = await getCollection("posts")
+    const categories = [...new Set(posts.flatMap(post => post.data.categories))]
 
-const allPosts = await getCollection("posts")
-const posts = allPosts.filter(post => post.data.categories.includes(category))
+    const paths = categories.map(category => {
+        const postsByCategory = posts.filter(post =>
+            post.data.categories.includes(category),
+        )
+
+        return {
+            params: {
+                slug: category,
+            },
+            props: {
+                category,
+                posts: postsByCategory,
+            },
+        }
+    })
+
+    return paths
+}
+
+type Props = {
+    category: string
+    posts: CollectionEntry<"posts">[]
+}
+
+const {category, posts} = Astro.props
 ---
 
 <Layout title={category}>
