@@ -3,6 +3,7 @@ import {getCollection, getEntryBySlug} from "astro:content"
 
 import Layout from "../../layouts/Layout.astro"
 import PostList from "../../components/PostList.astro"
+import Main from "../../components/Main.astro"
 
 const {slug} = Astro.params
 
@@ -17,7 +18,7 @@ const posts = allPosts.filter(post => post.data.author === author.slug)
 ---
 
 <Layout title={author.data.name}>
-    <main class="px-24 max-sm:px-5 max-w-7xl w-full justify-self-center">
+    <Main>
         <div class="text-zinc-500 text-2xl mb-16">
             ← <a href="/blog" class="underline">Back to all blogs</a>
         </div>
@@ -29,5 +30,5 @@ const posts = allPosts.filter(post => post.data.author === author.slug)
         <div class="mb-60">
             <PostList posts={posts} />
         </div>
-    </main>
+    </Main>
 </Layout>

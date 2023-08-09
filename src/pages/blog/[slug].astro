@@ -12,6 +12,7 @@ import TableOfContents from "../../components/TableOfContents.astro"
 import CommentList from "../../components/CommentList.astro"
 import CommentForm from "../../components/CommentForm.astro"
 import PostMeta from "../../components/PostMeta.astro"
+import Main from "../../components/Main.astro"
 
 const xata = new XataClient({apiKey: import.meta.env.XATA_API_KEY})
 
@@ -64,7 +65,7 @@ const {Content, headings} = await post.render()
 ---
 
 <Layout title={post.data.title} image={getThumbnail(post.data.title)}>
-    <main class="px-24 max-sm:px-5 max-w-5xl w-full justify-self-center">
+    <Main>
         <div class="text-zinc-500 text-2xl mb-16">
             ← <a href="/blog" class="underline">Back to all blogs</a>
         </div>
@@ -97,7 +98,7 @@ const {Content, headings} = await post.render()
 
             <TableOfContents headings={headings} />
         </div>
-    </main>
+    </Main>
 
     <div
         class="bg-teal-100/30 pt-14 px-24 pb-44 relative border-b border-teal-900 mt-44"
