@@ -3,6 +3,7 @@ import {CollectionEntry, getCollection} from "astro:content"
 
 import Layout from "../../layouts/Layout.astro"
 import PostList from "../../components/PostList.astro"
+import Main from "../../components/Main.astro"
 
 export const getStaticPaths = async () => {
     const authors = await getCollection("authors")
@@ -36,7 +37,7 @@ const {author, posts} = Astro.props
 ---
 
 <Layout title={author.data.name}>
-    <main class="px-24 max-sm:px-5 max-w-7xl w-full justify-self-center">
+    <Main>
         <div class="text-zinc-500 text-2xl mb-16">
             ← <a href="/blog" class="underline">Back to all blogs</a>
         </div>
@@ -48,5 +49,5 @@ const {author, posts} = Astro.props
         <div class="mb-60">
             <PostList posts={posts} />
         </div>
-    </main>
+    </Main>
 </Layout>

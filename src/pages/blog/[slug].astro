@@ -8,6 +8,8 @@ import CategoryList from "../../components/CategoryList.astro"
 import Share from "../../components/Share.astro"
 import TableOfContents from "../../components/TableOfContents.astro"
 import PostMeta from "../../components/PostMeta.astro"
+import Main from "../../components/Main.astro"
+import H1 from "../../components/H1.astro"
 
 export const getStaticPaths = async () => {
     const posts = await getCollection("posts")
@@ -48,18 +50,16 @@ const {Content, headings} = await post.render()
     title={post.data.title}
     image={"https://res.cloudinary.com/bradgarropy/image/upload/jqq-astro-blog/template.png"}
 >
-    <main class="px-24 max-sm:px-5 max-w-5xl w-full justify-self-center">
-        <div class="text-zinc-500 text-2xl mb-16">
-            ← <a href="/blog" class="underline">Back to all blogs</a>
-        </div>
+    <Main>
+        <a href="/blog" class="text-zinc-500 text-2xl mb-16 underline block"
+            >← Back to all blogs</a
+        >
 
         <div class="mb-4">
             <CategoryList categories={post.data.categories} />
         </div>
 
-        <p class="text-6xl text-teal-900 mb-11 font-bold">
-            {post.data.title}
-        </p>
+        <H1 text={post.data.title} />
 
         <PostMeta post={post} />
 
@@ -81,7 +81,7 @@ const {Content, headings} = await post.render()
 
             <TableOfContents headings={headings} />
         </div>
-    </main>
+    </Main>
 
     <div class="px-24 pt-56 pb-80 max-w-7xl mx-auto">
         <p class="font-bold text-teal-900 text-4xl mb-16">Related posts</p>
