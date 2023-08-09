@@ -6,6 +6,7 @@ import PostList from "../../components/PostList.astro"
 import CategoryList from "../../components/CategoryList.astro"
 import Pagination from "../../components/Pagination.astro"
 import Main from "../../components/Main.astro"
+import H1 from "../../components/H1.astro"
 
 const page = Number(Astro.url.searchParams.get("page")) || 1
 
@@ -21,9 +22,7 @@ const categories = Array.from(new Set(allCategories))
 
 <Layout>
     <Main>
-        <h1 class="text-6xl text-teal-900 font-bold mb-5">
-            Rhythm Nation Blog
-        </h1>
+        <H1 text="Rhythm Nation Blog" />
 
         <p class="text-zinc-900 text-2xl mb-24 max-sm:mb-14">
             Join the Community and learn from Music Producers and Enthusiasts

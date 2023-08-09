@@ -13,6 +13,7 @@ import CommentList from "../../components/CommentList.astro"
 import CommentForm from "../../components/CommentForm.astro"
 import PostMeta from "../../components/PostMeta.astro"
 import Main from "../../components/Main.astro"
+import H1 from "../../components/H1.astro"
 
 const xata = new XataClient({apiKey: import.meta.env.XATA_API_KEY})
 
@@ -74,9 +75,7 @@ const {Content, headings} = await post.render()
             <CategoryList categories={post.data.categories} />
         </div>
 
-        <p class="text-6xl text-teal-900 mb-11 font-bold">
-            {post.data.title}
-        </p>
+        <H1 text={post.data.title} />
 
         <PostMeta post={post} />
 
