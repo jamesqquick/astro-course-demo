@@ -87,15 +87,15 @@ const {Content, headings} = await post.render()
             format="webp"
             class="rounded-2xl shadow-xl mb-28 aspect-thumbnail object-cover"
         />
-
-        <div class="relative flex gap-x-12">
+        <div class="mb-10">
+            <TableOfContents headings={headings} />
+        </div>
+        <div class="relative">
             <Share post={post} />
 
             <div class="prose prose-2xl overflow-visible relative">
                 <Content />
             </div>
-
-            <TableOfContents headings={headings} />
         </div>
     </Main>
 
