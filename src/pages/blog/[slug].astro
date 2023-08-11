@@ -75,13 +75,12 @@ const {Content, headings} = await post.render()
         <div class="mb-10">
             <TableOfContents headings={headings} />
         </div>
-        <div class="relative flex gap-x-12">
+        <div class="relative">
             <Share post={post} />
 
             <div class="prose prose-2xl overflow-visible relative">
                 <Content />
             </div>
-
         </div>
     </Main>
 
