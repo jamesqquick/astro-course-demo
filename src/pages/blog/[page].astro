@@ -1,25 +1,33 @@
 ---
-import {getCollection} from "astro:content"
-
+import type {GetStaticPathsOptions, Page} from "astro"
+import {CollectionEntry, getCollection} from "astro:content"
+import H1 from "../../components/H1.astro"
+import Main from "../../components/Main.astro"
 import Layout from "../../layouts/Layout.astro"
 import PostList from "../../components/PostList.astro"
-import CategoryList from "../../components/CategoryList.astro"
 import Pagination from "../../components/Pagination.astro"
-import Main from "../../components/Main.astro"
-import H1 from "../../components/H1.astro"
+import CategoryList from "../../components/CategoryList.astro"
 
-const posts = (await getCollection("posts")).slice(0, 6)
+export async function getStaticPaths({paginate}: GetStaticPathsOptions) {
+    const allPosts = await getCollection("posts")
+    return paginate(allPosts, {pageSize: 2})
+}
+type Props = {
+    page: Page
+}
+const {page} = Astro.props
+const posts = page.data as CollectionEntry<"posts">[]
 const allCategories = posts.flatMap(post => post.data.categories)
 const categories = Array.from(new Set(allCategories))
 ---
 
 <Layout>
     <Main>
-        <H1 text="Rhythm Nation Blog" />
-
+        <H1 text={`Rhythm Nation Blog - Page ${page.currentPage}`} />
         <p class="text-zinc-900 text-2xl mb-24 max-sm:mb-14">
             Join the Community and learn from Music Producers and Enthusiasts
         </p>
+
         <div
             class="grid grid-cols-[auto,1fr] gap-x-14 gap-y-3 mb-16 max-lg:grid-cols-1"
         >
@@ -27,15 +35,14 @@ const categories = Array.from(new Set(allCategories))
             <CategoryList categories={categories} />
         </div>
         <div class="mb-12">
-            <Pagination nextURL="/blog/2" />
+            <Pagination prevURL={page.url.prev} nextURL={page.url.next} />
         </div>
 
         <div class="mb-32">
             <PostList posts={posts} />
         </div>
-
         <div class="mb-36">
-            <Pagination nextURL="/blog/2" />
+            <Pagination prevURL={page.url.prev} nextURL={page.url.next} />
         </div>
     </Main>
 </Layout>
