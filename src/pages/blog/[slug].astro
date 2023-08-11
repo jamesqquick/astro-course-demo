@@ -72,6 +72,9 @@ const {Content, headings} = await post.render()
             class="rounded-2xl shadow-xl mb-28 aspect-thumbnail object-cover"
         />
 
+        <div class="mb-10">
+            <TableOfContents headings={headings} />
+        </div>
         <div class="relative flex gap-x-12">
             <Share post={post} />
 
@@ -79,7 +82,6 @@ const {Content, headings} = await post.render()
                 <Content />
             </div>
 
-            <TableOfContents headings={headings} />
         </div>
     </Main>
 
