@@ -10,7 +10,7 @@ import CategoryList from "../../components/CategoryList.astro"
 
 export async function getStaticPaths({paginate}: GetStaticPathsOptions) {
     const allPosts = await getCollection("posts")
-    return paginate(allPosts, {pageSize: 2})
+    return paginate(allPosts, {pageSize: 6})
 }
 type Props = {
     page: Page
