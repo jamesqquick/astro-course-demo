@@ -1,31 +1,52 @@
 ---
-import {getCollection} from "astro:content"
+import { CollectionEntry, getCollection } from 'astro:content';
+import CategoryList from '../../components/CategoryList.astro';
+import H1 from '../../components/H1.astro';
+import Main from '../../components/Main.astro';
+import Pagination from '../../components/Pagination.astro';
+import PostList from '../../components/PostList.astro';
+import Layout from '../../layouts/Layout.astro';
 
-import Layout from "../../layouts/Layout.astro"
-import PostList from "../../components/PostList.astro"
-import Category from "../../components/Category.astro"
-import Main from "../../components/Main.astro"
+const page = Number(Astro.url.searchParams.get('page')) || 1;
+const postsPerPage = Number(import.meta.env.POSTS_PER_PAGE);
+const start = postsPerPage * (page - 1);
+const end = start + postsPerPage;
 
-const category = Astro.params.slug as string
+const category = Astro.params.slug as string;
+const allPosts = await getCollection('posts');
+const postsByCategory = allPosts
+  .filter((post) => post.data.categories.includes(category));
 
-const allPosts = await getCollection("posts")
-const posts = allPosts.filter(post => post.data.categories.includes(category))
+  const posts = postsByCategory.slice(start, end);
 ---
 
-<Layout title={category}>
-    <Main>
-        <div class="text-zinc-500 text-2xl mb-16">
-            ← <a href="/blog" class="underline">Back to all blogs</a>
-        </div>
+<Layout
+  title="Blog - Rhythm Nation"
+  description="Read and learn from Music Producers and Enthusiasts"
+>
+  <Main>
+    <a href="/blog" class="text-zinc-500 text-2xl mb-16 underline block"
+      >← Back to all blogs</a
+    >
+    <H1 text="Rhythm Nation Blog" />
 
-        <p
-            class="flex items-end gap-x-4 text-6xl text-teal-900 mb-16 font-bold"
-        >
-            Posts tagged <Category category={category} />
-        </p>
+    <p class="text-zinc-900 text-2xl mb-24 max-sm:mb-14">
+      Join the Community and learn from Music Producers and Enthusiasts
+    </p>
 
-        <div class="mb-60">
-            <PostList posts={posts} />
+    <CategoryList categories={[category]} title="Posts tagged" />
+    {
+        posts.length === 0 ? (
+            <p>No posts were found with that tag</p>
+            ) : (
+          <div class="mb-12">
+            <Pagination page={page} numberOfPosts={postsByCategory.length} />
+          </div>
+        <PostList posts={posts} />
+        <div class="mb-36">
+          <Pagination page={page} numberOfPosts={postsByCategory.length} />
         </div>
-    </Main>
+      )
+    }
+  </Main>
 </Layout>

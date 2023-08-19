@@ -31,14 +31,13 @@ const categories = Array.from(new Set(allCategories))
         <div
             class="grid grid-cols-[auto,1fr] gap-x-14 gap-y-3 mb-16 max-lg:grid-cols-1"
         >
-            <span class="font-bold text-5xl text-teal-900">Tags</span>
-            <CategoryList categories={categories} />
+            <CategoryList categories={categories} title="Tags" />
         </div>
 
         <div class="mb-32">
             <PostList posts={posts} />
         </div>
 
-        <Pagination page={page} />
+        <Pagination page={page} numberOfPosts={allPosts.length} />
     </Main>
 </Layout>

@@ -1,20 +1,21 @@
 ---
 import {getCollection} from "astro:content"
+type Props = {
+    page: number
+    numberOfPosts: number
+}
 
-const {page} = Astro.props
-
-const posts = await getCollection("posts", post => !post.data.featured)
-
-const postsPerPage = 6
+const {page, numberOfPosts} = Astro.props
+const postsPerPage = Number(import.meta.env.POSTS_PER_PAGE)
 const hasPreviousPosts = page > 1
-const hasNextPosts = posts.length > page * postsPerPage
+const hasNextPosts = numberOfPosts > page * postsPerPage
 ---
 
-<div class="flex justify-between mb-60 max-sm:mb-36">
+<div class="flex justify-between">
     {
         hasPreviousPosts ? (
             <a
-                href={`/blog?page=${page - 1}`}
+                href={`?page=${page - 1}`}
                 class="bg-teal-900 text-white py-3 px-6 rounded-xl text-xl"
             >
                 Previous
@@ -26,7 +27,7 @@ const hasNextPosts = posts.length > page * postsPerPage
     {
         hasNextPosts ? (
             <a
-                href={`/blog?page=${page + 1}`}
+                href={`?page=${page + 1}`}
                 class="bg-teal-900 text-white py-3 px-6 rounded-xl text-xl"
             >
                 Next
