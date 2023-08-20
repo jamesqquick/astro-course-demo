@@ -1,6 +1,6 @@
 {
-  "databaseURL": "https://bradgarropy-s-workspace-8eg8mm.us-east-1.xata.sh/db/jqq-astro-blog",
-  "codegen": {
-    "output": "src/xata.ts"
-  }
+    "databaseURL": "https://James-Q-Quick-s-workspace-l5kbra.us-east-1.xata.sh/db/astro-course-demo",
+    "codegen": {
+        "output": "src/xata.ts"
+    }
 }

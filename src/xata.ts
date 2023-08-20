@@ -14,6 +14,7 @@ const tables = [
       { name: "password", type: "string", notNull: true, defaultValue: "" },
       { name: "name", type: "string", notNull: true, defaultValue: "" },
     ],
+    revLinks: [{ column: "user", table: "comments" }],
   },
   {
     name: "comments",
@@ -44,7 +45,7 @@ const DatabaseClient = buildClient();
 
 const defaultOptions = {
   databaseURL:
-    "https://bradgarropy-s-workspace-8eg8mm.us-east-1.xata.sh/db/jqq-astro-blog",
+    "https://James-Q-Quick-s-workspace-l5kbra.us-east-1.xata.sh/db/astro-course-demo",
 };
 
 export class XataClient extends DatabaseClient<DatabaseSchema> {
