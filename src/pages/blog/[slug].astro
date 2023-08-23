@@ -1,6 +1,6 @@
 ---
 import {getCollection, getEntryBySlug} from "astro:content"
-import {Image} from "@astrojs/image/components"
+import {Image} from "astro:assets"
 
 import Layout from "../../layouts/Layout.astro"
 import PostList from "../../components/PostList.astro"
@@ -100,13 +100,10 @@ const {Content, headings} = await post.render()
     </Main>
 
     <div
-        class="bg-teal-100/30 pt-14 px-24 pb-44 relative border-b border-teal-900 mt-44"
+        class="bg-teal-100/30 py-14 px-24 relative border-b border-teal-900 mt-44"
     >
         <div class="max-w-7xl mx-auto">
-            <div
-                id="comments"
-                class="flex items-center absolute top-0 -translate-y-1/2"
-            >
+            <div id="comments" class="">
                 <span class="font-bold text-teal-900 text-4xl mr-12"
                     >Comments</span
                 >
@@ -117,13 +114,14 @@ const {Content, headings} = await post.render()
                     {comments.length}
                 </span>
             </div>
-
-            <CommentForm />
+            <div class="mb-14">
+                <CommentForm />
+            </div>
             <CommentList comments={comments} />
         </div>
     </div>
 
-    <div class="px-24 pt-56 pb-80 max-w-7xl mx-auto">
+    <div class="px-24 py-20 max-w-7xl mx-auto">
         <p class="font-bold text-teal-900 text-4xl mb-16">Related posts</p>
         <PostList posts={relatedPosts} />
     </div>

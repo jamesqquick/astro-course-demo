@@ -12,10 +12,10 @@ if (!post) {
 ---
 
 {
-    user.value ? (
+    user?.value ? (
         <form
             method="POST"
-            class="grid grid-cols-[1fr,auto] gap-x-3 gap-y-2 mb-24 items-end max-md:grid-cols-1"
+            class="grid grid-cols-[1fr,auto] gap-x-3 gap-y-2  items-end max-md:grid-cols-1"
         >
             <div class="flex flex-col">
                 <label for="comment" class="text-zinc-900 text-2xl mb-2">
