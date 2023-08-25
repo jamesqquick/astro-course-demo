@@ -22,9 +22,18 @@ if (Astro.request.method === "POST") {
         password: hash,
     })
 
-    Astro.cookies.set("userId", user.id)
-    Astro.cookies.set("userName", user.name)
-    Astro.cookies.set("userEmail", user.email as string)
+    Astro.cookies.set("userId", user.id, {
+        httpOnly: true,
+        secure: true,
+    })
+    Astro.cookies.set("userName", user.name, {
+        httpOnly: true,
+        secure: true,
+    })
+    Astro.cookies.set("userEmail", user.email as string, {
+        httpOnly: true,
+        secure: true,
+    })
 
     return Astro.redirect("/", 302)
 }
