@@ -1,0 +1,13 @@
+---
+import Layout from "../../layouts/Layout.astro"
+import Main from "../../components/Main.astro"
+const message = Astro.url.searchParams.get("message")
+---
+
+<Layout title="Newsletter Success!">
+    <Main>
+        <p class="text-center pt-12 text-2xl">
+            {message || "Something went wrong"}
+        </p>
+    </Main>
+</Layout>
