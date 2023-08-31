@@ -19,7 +19,7 @@
         "@cloudinary/url-gen": "^1.10.0",
         "@fontsource/cabin": "^5.0.8",
         "@xata.io/client": "^0.23.5",
-        "astro": "^3.0.0-rc.5",
+        "astro": "^3.0.5",
         "bcryptjs": "^2.4.3",
         "date-fns": "^2.30.0",
         "markdown-it": "^13.0.1",

@@ -1,5 +1,5 @@
 ---
-import {CollectionEntry, getEntryBySlug} from "astro:content"
+import {type CollectionEntry, getEntryBySlug} from "astro:content"
 import {Image} from "astro:assets"
 
 import CategoryList from "./CategoryList.astro"
@@ -17,8 +17,8 @@ const author = await getEntryBySlug("authors", post.data.author)
         <Image
             src={post.data.image}
             alt={post.data.title}
-            width={1024}
-            height={1024 / 1.5}
+            width={600}
+            height={600 / 1.5}
             format="webp"
             class="rounded-2xl shadow-xl mb-6 aspect-thumbnail object-cover"
         />
