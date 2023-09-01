@@ -12,6 +12,7 @@
         "format:fix": "prettier --write ."
     },
     "dependencies": {
+        "@astrojs/netlify": "^3.0.0",
         "@astrojs/rss": "^2.4.4",
         "@astrojs/sitemap": "^2.0.2",
         "@astrojs/tailwind": "^5.0.0-rc.1",
