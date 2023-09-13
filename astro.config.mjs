@@ -13,7 +13,7 @@ export default defineConfig({
     },
     output: "server",
     adapter: vercel(),
-    // adapter: netlify(),
+    adapter: netlify(),
     site: "https://rhythm.nation",
     server: {
         port: 3000,
