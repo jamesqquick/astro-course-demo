@@ -1,4 +1,4 @@
 ---
 name: Michael Scott
-image: /images/coffee.jpg
+image: ./images/coffee.jpg
 ---

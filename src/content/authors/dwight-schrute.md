@@ -1,4 +1,4 @@
 ---
 name: Dwight Schrute
-image: /images/coffee.jpg
+image: ./images/coffee.jpg
 ---
