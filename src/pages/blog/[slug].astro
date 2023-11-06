@@ -1,6 +1,6 @@
 ---
 import {CollectionEntry, getCollection} from "astro:content"
-import { Image } from 'astro:assets';
+import {Image, getImage} from "astro:assets"
 
 import Layout from "../../layouts/Layout.astro"
 import PostList from "../../components/PostList.astro"
@@ -44,12 +44,10 @@ type Props = {
 
 const {post, relatedPosts} = Astro.props
 const {Content, headings} = await post.render()
+const coverImageSource = (await getImage({src: post.data.image})).src
 ---
 
-<Layout
-    title={post.data.title}
-    image={"https://res.cloudinary.com/bradgarropy/image/upload/jqq-astro-blog/template.png"}
->
+<Layout title={post.data.title} image={coverImageSource}>
     <Main>
         <a href="/blog" class="text-zinc-500 text-2xl mb-16 underline block"
             >← Back to all blogs</a
