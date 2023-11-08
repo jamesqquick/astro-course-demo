@@ -14,7 +14,8 @@ import CommentForm from "../../components/CommentForm.astro"
 import PostMeta from "../../components/PostMeta.astro"
 import Main from "../../components/Main.astro"
 import H1 from "../../components/H1.astro"
-
+import EmojiReactions from "../../components/EmojiReactions.svelte"
+import {getReactionDetailsByPost} from "../../utils/Emojis"
 const xata = new XataClient({apiKey: import.meta.env.XATA_API_KEY})
 
 const user = Astro.cookies.get("userId")
@@ -25,7 +26,7 @@ if (Astro.request.method === "POST") {
     const post = data.get("post") as string
     const comment = data.get("comment") as string
 
-    if (!user.value) {
+    if (!user?.value) {
         return Astro.redirect(`/login?redirect=/blog/${post.slug}#comments`)
     }
 
@@ -62,6 +63,7 @@ const comments = await xata.db.comments
     .filter({post: post.slug})
     .getMany()
 
+const reactionDetails = await getReactionDetailsByPost(post.slug, user?.value)
 const {Content, headings} = await post.render()
 ---
 
@@ -90,17 +92,18 @@ const {Content, headings} = await post.render()
         <div class="mb-10">
             <TableOfContents headings={headings} />
         </div>
-        <div class="relative">
+        <div class="relative mb-10">
             <Share post={post} />
 
             <div class="prose prose-2xl overflow-visible relative">
                 <Content />
             </div>
         </div>
+        <EmojiReactions client:load post={post.slug} {reactionDetails} />
     </Main>
 
     <div
-        class="bg-teal-100/30 py-14 px-24 relative border-b border-teal-900 mt-44"
+        class="bg-teal-100/30 py-14 px-24 relative border-b border-teal-900 mt-20"
     >
         <div class="max-w-7xl mx-auto">
             <div id="comments" class="">
