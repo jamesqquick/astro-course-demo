@@ -1,4 +1,4 @@
 ---
 name: Pam Beesely
-image: ./images/coffee.jpg
+image: ./coffee.jpg
 ---

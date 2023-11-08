@@ -2,10 +2,11 @@ import {z, defineCollection} from "astro:content"
 import {format} from "date-fns"
 
 const authorsCollection = defineCollection({
-    schema: z.object({
-        name: z.string(),
-        image: z.string(),
-    }),
+    schema: ({image}) =>
+        z.object({
+            name: z.string(),
+            image: image(),
+        }),
 })
 
 const postsCollection = defineCollection({

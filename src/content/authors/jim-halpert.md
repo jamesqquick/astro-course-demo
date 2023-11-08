@@ -1,4 +1,4 @@
 ---
 name: Jim Halpert
-image: ./images/coffee.jpg
+image: ./coffee.jpg
 ---
