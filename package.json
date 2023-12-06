@@ -15,9 +15,11 @@
         "@astrojs/netlify": "^3.0.1",
         "@astrojs/rss": "^3.0.0",
         "@astrojs/sitemap": "^3.0.0",
+        "@astrojs/svelte": "^4.0.3",
         "@astrojs/tailwind": "^5.0.0",
         "@astrojs/vercel": "^4.0.5",
         "@fontsource/cabin": "^5.0.8",
+        "@fortawesome/free-solid-svg-icons": "^6.4.2",
         "astro": "^3.0.13",
         "bcryptjs": "^2.4.3",
         "date-fns": "^2.30.0",
@@ -25,6 +27,8 @@
         "mdast-util-to-string": "^4.0.0",
         "reading-time": "^1.5.0",
         "sanitize-html": "^2.10.0",
+        "svelte": "^4.2.2",
+        "svelte-fa": "^3.0.4",
         "tailwindcss": "^3.3.1"
     },
     "devDependencies": {
