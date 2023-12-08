@@ -20,6 +20,7 @@ const xata = new XataClient({apiKey: import.meta.env.XATA_API_KEY})
 
 const user = Astro.cookies.get("userId")
 
+const {slug} = Astro.params
 if (Astro.request.method === "POST") {
     const data = await Astro.request.formData()
 
@@ -27,7 +28,7 @@ if (Astro.request.method === "POST") {
     const comment = data.get("comment") as string
 
     if (!user?.value) {
-        return Astro.redirect(`/login?redirect=/blog/${post.slug}#comments`)
+        return Astro.redirect(`/login?redirect=/blog/${slug}#comments`)
     }
 
     await xata.db.comments.create({
@@ -36,9 +37,8 @@ if (Astro.request.method === "POST") {
         date: new Date(),
         user: user.value,
     })
+    return Astro.redirect(`/blog/${slug}#comments`)
 }
-
-const {slug} = Astro.params
 
 const post = await getEntryBySlug("posts", slug as string)
 
@@ -61,6 +61,7 @@ const relatedPosts = remainingPosts.filter(p =>
 const comments = await xata.db.comments
     .select(["id", "text", "date", "user.name"])
     .filter({post: post.slug})
+    .sort("date", "desc")
     .getMany()
 
 const reactionDetails = await getReactionDetailsByPost(post.slug, user?.value)
