@@ -14,7 +14,8 @@ import CommentForm from "../../components/CommentForm.astro"
 import PostMeta from "../../components/PostMeta.astro"
 import Main from "../../components/Main.astro"
 import H1 from "../../components/H1.astro"
-
+import EmojiReactions from "../../components/EmojiReactions.svelte"
+import {getReactionsDetailsByPost} from "../../utils/Emoji"
 const xata = new XataClient({apiKey: import.meta.env.XATA_API_KEY})
 
 const user = Astro.cookies.get("userId")
@@ -63,6 +64,7 @@ const comments = await xata.db.comments
     .sort("date", "desc")
     .getMany()
 
+const reactionsDetails = await getReactionsDetailsByPost(post.slug, user?.value)
 const {Content, headings} = await post.render()
 ---
 
@@ -98,6 +100,7 @@ const {Content, headings} = await post.render()
                 <Content />
             </div>
         </div>
+        <EmojiReactions client:visible post={post.slug} {reactionsDetails} />
     </Main>
 
     <div

@@ -15,10 +15,12 @@
         "@astrojs/netlify": "^3.1.1",
         "@astrojs/rss": "^4.0.1",
         "@astrojs/sitemap": "^3.0.3",
+        "@astrojs/svelte": "^5.0.0",
         "@astrojs/tailwind": "^5.0.3",
         "@astrojs/vercel": "^6.0.1",
         "@cloudinary/url-gen": "^1.10.0",
         "@fontsource/cabin": "^5.0.8",
+        "@fortawesome/free-solid-svg-icons": "^6.5.1",
         "@xata.io/client": "^0.23.5",
         "astro": "^4.0.3",
         "bcryptjs": "^2.4.3",
@@ -27,6 +29,8 @@
         "mdast-util-to-string": "^3.2.0",
         "reading-time": "^1.5.0",
         "sanitize-html": "^2.10.0",
+        "svelte": "^4.2.8",
+        "svelte-fa": "^3.0.4",
         "tailwindcss": "^3.3.3"
     },
     "devDependencies": {
