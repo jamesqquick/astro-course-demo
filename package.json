@@ -12,19 +12,22 @@
         "format:fix": "prettier --write ."
     },
     "dependencies": {
-        "@astrojs/netlify": "^3.0.1",
-        "@astrojs/rss": "^3.0.0",
-        "@astrojs/sitemap": "^3.0.0",
-        "@astrojs/tailwind": "^5.0.0",
-        "@astrojs/vercel": "^4.0.5",
+        "@astrojs/netlify": "^3.1.1",
+        "@astrojs/rss": "^4.0.1",
+        "@astrojs/sitemap": "^3.0.3",
+        "@astrojs/svelte": "^5.0.1",
+        "@astrojs/tailwind": "^5.0.3",
+        "@astrojs/vercel": "^6.0.2",
         "@fontsource/cabin": "^5.0.8",
-        "astro": "^3.0.13",
+        "astro": "^4.0.4",
         "bcryptjs": "^2.4.3",
         "date-fns": "^2.30.0",
+        "kwesforms": "^2.2.6",
         "markdown-it": "^13.0.1",
         "mdast-util-to-string": "^4.0.0",
         "reading-time": "^1.5.0",
         "sanitize-html": "^2.10.0",
+        "svelte": "^4.2.8",
         "tailwindcss": "^3.3.1"
     },
     "devDependencies": {
