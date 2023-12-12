@@ -19,6 +19,8 @@
         "@astrojs/tailwind": "^5.0.3",
         "@astrojs/vercel": "^6.0.2",
         "@fontsource/cabin": "^5.0.8",
+        "@sentry/astro": "^7.86.0",
+        "@spotlightjs/astro": "^1.0.2",
         "astro": "^4.0.4",
         "bcryptjs": "^2.4.3",
         "date-fns": "^2.30.0",
