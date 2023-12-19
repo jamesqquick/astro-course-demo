@@ -7,7 +7,6 @@ import netlify from "@astrojs/netlify/functions"
 import svelte from "@astrojs/svelte"
 
 import sentry from "@sentry/astro"
-import spotlightjs from "@spotlightjs/astro"
 
 // https://astro.build/config
 export default defineConfig({
@@ -22,7 +21,6 @@ export default defineConfig({
                 authToken: process.env.SENTRY_AUTH_TOKEN,
             },
         }),
-        spotlightjs(),
     ],
     markdown: {
         remarkPlugins: [remarkReadingTime],
