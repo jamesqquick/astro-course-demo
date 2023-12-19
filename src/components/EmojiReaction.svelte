@@ -39,14 +39,13 @@
             } else if (res.status === 401) {
                 window.location.href = "/login"
             }
-        } catch (error) {
-            console.error(error)
-        }
+        } catch (error) {}
     }
 </script>
 
 <button
     on:click={handleEmojiReaction}
+    aria-label={`React with ${emoji}`}
     class={`w-16 flex gap-x-1 justify-center items-center text-gray-500 cursor-pointer hover:scale-110 transition-transform ${
         reacted
             ? "text-teal-700 border-2 border-teal-900 bg-teal-50 py-3 rounded-full"

@@ -13,7 +13,10 @@ const author = await getEntryBySlug("authors", post.data.author)
 ---
 
 <article>
-    <a href={`/blog/${post.slug}`}>
+    <a
+        href={`/blog/${post.slug}`}
+        aria-label={`Read more about ${post.data.title}`}
+    >
         <Image
             src={post.data.image}
             alt={post.data.title}
