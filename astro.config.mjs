@@ -6,22 +6,9 @@ import {remarkReadingTime} from "./src/remarkReadingTime"
 import netlify from "@astrojs/netlify/functions"
 import svelte from "@astrojs/svelte"
 
-import sentry from "@sentry/astro"
-
 // https://astro.build/config
 export default defineConfig({
-    integrations: [
-        tailwind(),
-        sitemap(),
-        svelte(),
-        sentry({
-            dsn: "https://ab69a01d3403b79bf1b71fdce18be5a7@o4506232146034688.ingest.sentry.io/4506384553869312",
-            sourceMapsUploadOptions: {
-                project: "javascript-astro",
-                authToken: process.env.SENTRY_AUTH_TOKEN,
-            },
-        }),
-    ],
+    integrations: [tailwind(), sitemap(), svelte()],
     markdown: {
         remarkPlugins: [remarkReadingTime],
     },

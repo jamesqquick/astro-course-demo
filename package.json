@@ -21,7 +21,6 @@
         "@cloudinary/url-gen": "^1.10.0",
         "@fontsource/cabin": "^5.0.8",
         "@fortawesome/free-solid-svg-icons": "^6.5.1",
-        "@sentry/astro": "^7.86.0",
         "@xata.io/client": "^0.23.5",
         "astro": "^4.0.3",
         "bcryptjs": "^2.4.3",
