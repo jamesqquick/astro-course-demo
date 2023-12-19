@@ -16,8 +16,8 @@ export default defineConfig({
         remarkPlugins: [remarkReadingTime],
     },
     output: "server",
-    adapter: vercel(),
-    //   adapter: netlify(),
+    // adapter: vercel(),
+    adapter: netlify(),
     site: "https://rhythm.nation",
     server: {
         port: 3000,
