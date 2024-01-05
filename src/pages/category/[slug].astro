@@ -1,27 +1,14 @@
 ---
-import {CollectionEntry, getCollection} from "astro:content"
-
-import Layout from "../../layouts/Layout.astro"
-import PostList from "../../components/PostList.astro"
-import Category from "../../components/Category.astro"
-import Main from "../../components/Main.astro"
+import {getCollection} from "astro:content"
+import {getAllCategories} from "../../utils/categories"
 
 export const getStaticPaths = async () => {
     const posts = await getCollection("posts")
-    const categories = [...new Set(posts.flatMap(post => post.data.categories))]
-
+    const categories = getAllCategories(posts)
     const paths = categories.map(category => {
-        const postsByCategory = posts.filter(post =>
-            post.data.categories.includes(category),
-        )
-
         return {
             params: {
                 slug: category,
-            },
-            props: {
-                category,
-                posts: postsByCategory,
             },
         }
     })
@@ -29,28 +16,7 @@ export const getStaticPaths = async () => {
     return paths
 }
 
-type Props = {
-    category: string
-    posts: CollectionEntry<"posts">[]
-}
+const {slug} = Astro.params
 
-const {category, posts} = Astro.props
+return Astro.redirect(`/category/${slug}/1`)
 ---
-
-<Layout title={category}>
-    <Main>
-        <div class="text-zinc-500 text-2xl mb-16">
-            ← <a href="/blog" class="underline">Back to all blogs</a>
-        </div>
-
-        <p
-            class="flex items-end gap-x-4 text-6xl text-teal-900 mb-16 font-bold"
-        >
-            Posts tagged <Category category={category} />
-        </p>
-
-        <div class="mb-60">
-            <PostList posts={posts} />
-        </div>
-    </Main>
-</Layout>

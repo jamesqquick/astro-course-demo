@@ -1,0 +1,60 @@
+---
+import {CollectionEntry, getCollection} from "astro:content"
+
+import Layout from "../../../layouts/Layout.astro"
+import PostList from "../../../components/PostList.astro"
+import Category from "../../../components/Category.astro"
+import Main from "../../../components/Main.astro"
+import Pagination from "../../../components/Pagination.astro"
+import {getAllCategories} from "../../../utils/categories"
+
+import type {GetStaticPathsOptions, Page} from "astro"
+
+export const getStaticPaths = async ({paginate}: GetStaticPathsOptions) => {
+    const posts = await getCollection("posts")
+    const categories = getAllCategories(posts)
+
+    return categories.flatMap(category => {
+        const filteredPosts = posts.filter(post =>
+            post.data.categories.includes(category),
+        )
+
+        return paginate(filteredPosts, {params: {category}, pageSize: 2})
+    })
+}
+
+export type Props = {
+    page: Page
+}
+
+const {page} = Astro.props
+const posts = page.data as CollectionEntry<"posts">[]
+const {category} = Astro.params
+console.log(category)
+---
+
+<Layout title={category}>
+    <Main>
+        <div class="text-zinc-500 text-2xl mb-16">
+            ← <a href="/blog" class="underline">Back to all blogs</a>
+        </div>
+
+        <p
+            class="flex items-end gap-x-4 text-6xl text-teal-900 mb-16 font-bold"
+        >
+            Posts tagged <Category category={category} />
+        </p>
+
+        <div class="mb-12">
+            <Pagination prevURL={page.url.prev} nextURL={page.url.next} />
+        </div>
+
+        <div class="mb-32">
+            <PostList posts={posts} />
+        </div>
+
+        <div class="mb-36">
+            <Pagination prevURL={page.url.prev} nextURL={page.url.next} />
+        </div>
+    </Main>
+</Layout>

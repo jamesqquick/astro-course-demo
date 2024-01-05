@@ -7,10 +7,10 @@ import CategoryList from "../../components/CategoryList.astro"
 import Pagination from "../../components/Pagination.astro"
 import Main from "../../components/Main.astro"
 import H1 from "../../components/H1.astro"
+import {getAllCategories} from "../../utils/categories"
 
 const posts = (await getCollection("posts")).slice(0, 6)
-const allCategories = posts.flatMap(post => post.data.categories)
-const categories = Array.from(new Set(allCategories))
+const categories = getAllCategories(posts)
 ---
 
 <Layout>

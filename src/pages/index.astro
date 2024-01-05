@@ -7,12 +7,12 @@ import PostList from "../components/PostList.astro"
 import CategoryList from "../components/CategoryList.astro"
 import Main from "../components/Main.astro"
 import H1 from "../components/H1.astro"
+import {getAllCategories} from "../utils/categories"
 
 const allPosts = await getCollection("posts")
 const featuredPosts = allPosts.filter(post => post.data.featured)
 const posts = allPosts.filter(post => !post.data.featured).slice(0, 4)
-const allCategories = allPosts.flatMap(post => post.data.categories)
-const categories = Array.from(new Set(allCategories))
+const categories = getAllCategories(allPosts)
 ---
 
 <Layout>
