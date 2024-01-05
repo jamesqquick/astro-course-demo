@@ -30,7 +30,6 @@ export type Props = {
 const {page} = Astro.props
 const posts = page.data as CollectionEntry<"posts">[]
 const {category} = Astro.params
-console.log(category)
 ---
 
 <Layout title={category}>
