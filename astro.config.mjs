@@ -6,12 +6,12 @@ import vercel from "@astrojs/vercel/serverless"
 import netlify from "@astrojs/netlify/functions"
 import svelte from "@astrojs/svelte"
 
-import sentry from "@sentry/astro"
-import spotlightjs from "@spotlightjs/astro"
+// import sentry from "@sentry/astro"
+// import spotlightjs from "@spotlightjs/astro"
 
 // https://astro.build/config
 export default defineConfig({
-    integrations: [tailwind(), sitemap(), svelte(), sentry(), spotlightjs()],
+    integrations: [tailwind(), sitemap(), svelte()],
     markdown: {
         remarkPlugins: [remarkReadingTime],
     },
